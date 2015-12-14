@@ -20,6 +20,8 @@ namespace IntGraphLab8
     /// </summary>
     public partial class MainWindow : Window
     {
+        const int a = 2;
+
         public MainWindow()
         {
             InitializeComponent();
