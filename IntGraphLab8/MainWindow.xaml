@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:IntGraphLab8"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Connexion" Margin="5" Click="ButtonStart_Click"/>
+            <Button Grid.Column="1" Content="Recette" Margin="5" Click="ButtonJob_Click"/>
+            <Button Grid.Column="2" Content="Machine" Margin="5" Click="ButtonMonitor_Click"/>
+            <Button Grid.Column="3" Content="Configuration" Margin="5" Click="ButtonConfig_Click"/>
+        </Grid>
+        <StackPanel>
+            <local:Start x:Name="PageStart"/>
+            <local:Job x:Name="PageJob"/>
+            <local:Monitoring x:Name="PageMonitoring"/>
+            <local:Configuration x:Name="PageConfig"/>
+        </StackPanel>
+    </DockPanel>
 </Window>

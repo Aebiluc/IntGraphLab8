@@ -20,11 +20,56 @@ namespace IntGraphLab8
     /// </summary>
     public partial class MainWindow : Window
     {
-        const int a = 2;
-
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {
+            PageManagement(1);
+        }
+
+        private void ButtonJob_Click(object sender, RoutedEventArgs e)
+        {
+            PageManagement(2);
+        }
+
+        private void ButtonMonitor_Click(object sender, RoutedEventArgs e)
+        {
+            PageManagement(3);
+        }
+
+        private void ButtonConfig_Click(object sender, RoutedEventArgs e)
+        {
+            PageManagement(4);
+        }
+
+        private void PageManagement(int numPage)
+        {
+            PageStart.Visibility = Visibility.Collapsed;
+            PageJob.Visibility = Visibility.Collapsed;
+            PageMonitoring.Visibility = Visibility.Collapsed;
+            PageConfig.Visibility = Visibility.Collapsed;
+
+            switch(numPage)
+            {
+                case 1:
+                    PageStart.Visibility = Visibility.Visible;
+                    break;
+
+                case 2:
+                    PageJob.Visibility = Visibility.Visible;
+                    break;
+
+                case 3:
+                    PageMonitoring.Visibility = Visibility.Visible;
+                    break;
+
+                case 4:
+                    PageConfig.Visibility = Visibility.Visible;
+                    break;
+            }
         }
     }
 }
