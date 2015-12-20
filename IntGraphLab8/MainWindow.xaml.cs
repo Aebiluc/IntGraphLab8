@@ -23,6 +23,7 @@ namespace IntGraphLab8
         public MainWindow()
         {
             InitializeComponent();
+            PageManagement(1);
         }
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)

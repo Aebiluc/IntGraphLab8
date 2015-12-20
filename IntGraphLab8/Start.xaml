@@ -5,8 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IntGraphLab8"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="400" d:DesignWidth="400">
     <Grid>
-        <TextBlock Text="Start" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button>
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border>
+                            <Image Source="Image\Operator.png" Height="30" Width="80"/>
+                            
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Image Source="Image\Operator.png" Height="100" Width="80"/>
+            <Image Source="Image\Manager.png" Height="100" Width="80" Margin="40,0,40,0"/>
+            <Image Source="Image\Administrator.png" Height="100" Width="80"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,100">
+            <PasswordBox Width="100" Height="20" />
+            <Button Content="Valider"  Height="20" Margin="10,0,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

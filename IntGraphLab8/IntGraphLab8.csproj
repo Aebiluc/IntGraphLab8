@@ -61,6 +61,7 @@
     <Compile Include="Job.xaml.cs">
       <DependentUpon>Job.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Machine.cs" />
     <Compile Include="Monitoring.xaml.cs">
       <DependentUpon>Monitoring.xaml</DependentUpon>
     </Compile>
@@ -122,6 +123,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Administrator.png" />
+    <Resource Include="Image\Manager.png" />
+    <Resource Include="Image\Operator.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
