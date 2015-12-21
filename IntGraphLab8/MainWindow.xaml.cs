@@ -15,15 +15,18 @@ using System.Windows.Shapes;
 
 namespace IntGraphLab8
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+
+        User CurrentUser;
+
         public MainWindow()
         {
             InitializeComponent();
             PageManagement(1);
+            CurrentUser = new User(UserType.None);
+            PageStart.SelectedUser = CurrentUser;
+            PageStart.ButtonValidateAction = ButtonJob_Click;
         }
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)

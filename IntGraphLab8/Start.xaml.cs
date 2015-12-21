@@ -1,28 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IntGraphLab8
 {
-    /// <summary>
-    /// Interaction logic for Start.xaml
-    /// </summary>
+    public delegate void ButtonValidate(object sender, RoutedEventArgs e);
     public partial class Start : UserControl
     {
         public Start()
         {
             InitializeComponent();
+        }
+
+        private void ButtonOperator_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedUser.UserStatus = UserType.Operator;
+        }
+
+        private void ButtonManager_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedUser.UserStatus = UserType.Manager;
+        }
+
+        private void ButtonAdmin_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedUser.UserStatus = UserType.Admin;
+        }
+
+        public User SelectedUser { get; set; }
+        public ButtonValidate ButtonValidateAction { get; set; }
+
+        private void ButtonValidate_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonValidateAction(sender, e);
         }
     }
 }
