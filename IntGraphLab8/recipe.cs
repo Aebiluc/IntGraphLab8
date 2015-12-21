@@ -104,7 +104,7 @@ namespace Labo6
         public void Insert(int index, Lot lot)
         {
             _listLot.Insert(index, lot);
-            lot.Id = _currentId++;
+            lot.id = _currentId++;
         }
 
         public Lot GetItem(int index)
