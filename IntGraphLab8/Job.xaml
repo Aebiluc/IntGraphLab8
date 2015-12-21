@@ -7,6 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock Text="Job"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="110"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Grid.Column="0"/>
+        <StackPanel Grid.Column="1">
+            <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0"/>
+            <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0"/>
+        </StackPanel>
     </Grid>
 </UserControl>
