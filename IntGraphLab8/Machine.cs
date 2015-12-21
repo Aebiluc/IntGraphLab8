@@ -40,11 +40,16 @@ namespace APIMAchine
             // send command as a packet of bytes
             commandBytes = Encoding.ASCII.GetBytes(command);
             _udpClient.Send(commandBytes, commandBytes.Length);
-            
-            // wait and get answer as a packet of bytes, convert to string
-            answerBytes = _udpClient.Receive(ref _sender);
-            answer = Encoding.ASCII.GetString(answerBytes);
-            return 1;
+            try {
+                // wait and get answer as a packet of bytes, convert to string
+                answerBytes = _udpClient.Receive(ref _sender);
+                answer = Encoding.ASCII.GetString(answerBytes);
+                return 1;
+            }
+            catch (SocketException) {
+                answer = null;
+                return -1;
+            }
         
         }
 
