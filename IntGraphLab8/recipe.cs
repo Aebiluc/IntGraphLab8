@@ -3,9 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Labo6
+namespace IntGraphLab8
 {
     public enum tank : byte { A,B,C,D };
+
+    interface ISerialXML
+    {
+        void ExportXML(XmlWriter writer);
+        void ImportXML(XmlReader reader);
+    }
+
     public class Lot : ISerialXML
     {
         public int nbBuckets{get;set;}
@@ -146,11 +153,5 @@ namespace Labo6
             }
             reader.ReadEndElement();
         }
-    }
-
-    interface ISerialXML
-    {
-        void ExportXML(XmlWriter writer);
-        void ImportXML(XmlReader writer);
     }
 }
