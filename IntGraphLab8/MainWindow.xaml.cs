@@ -26,7 +26,18 @@ namespace IntGraphLab8
             PageManagement(1);
             CurrentUser = new User(UserType.None);
             PageStart.SelectedUser = CurrentUser;
-            PageStart.ButtonValidateAction = ButtonJob_Click;
+            PageStart.ButtonValidateAction = UserManagement;
+            ButtonConfig.IsEnabled = false;
+        }
+
+        private void UserManagement(object sender, RoutedEventArgs e)
+        {
+            if (CurrentUser.UserStatus == UserType.Admin)
+                ButtonConfig.IsEnabled = true;
+            else
+                ButtonConfig.IsEnabled = false;
+
+            ButtonJob_Click(sender, e);
         }
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
