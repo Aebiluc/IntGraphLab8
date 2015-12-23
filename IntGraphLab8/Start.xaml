@@ -12,28 +12,28 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="buttonOperateur" Click="ButtonOperator_Click">
+            <Button Name="buttonOperateur" Click="ButtonOperator_Click" Background="LightGray">
                 <Button.Template>
                     <ControlTemplate>
-                        <Border BorderThickness="2" BorderBrush="LightGray" CornerRadius="4" Height="100">
+                        <Border BorderThickness="2" BorderBrush="{TemplateBinding Background}" CornerRadius="4" Height="100">
                             <Image Source="Image\Operator.png" Height="100" Width="80"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Click="ButtonManager_Click" Name="ButtonManager">
+            <Button Click="ButtonManager_Click" Name="ButtonManager" Background="LightGray">
                 <Button.Template>
                     <ControlTemplate>
-                        <Border BorderThickness="2" BorderBrush="LightGray" CornerRadius="4" Height="100" Margin="30,0,30,0">
+                        <Border BorderThickness="2" BorderBrush="{TemplateBinding Background}" CornerRadius="4" Height="100" Margin="30,0,30,0">
                             <Image Source="Image\Manager.png" Height="100" Width="80"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Click="ButtonAdmin_Click" x:Name="ButtonAdmin">
+            <Button Click="ButtonAdmin_Click" x:Name="ButtonAdmin" Background="LightGray">
                 <Button.Template>
                     <ControlTemplate>
-                        <Border BorderThickness="2" BorderBrush="LightGray" Height="100" CornerRadius="4">
+                        <Border BorderThickness="2" BorderBrush="{TemplateBinding Background}" Height="100" CornerRadius="4">
                             <Image Source="Image\Administrator.png" Height="100" Width="80"/>
                         </Border>
                     </ControlTemplate>
