@@ -16,8 +16,6 @@ namespace IntGraphLab8
             writer.WriteStartElement("Parameter");
             writer.WriteElementString("FilePath", FilePath);
             writer.WriteEndElement();
-
-            throw new NotImplementedException();
         }
 
         public void ImportXML(XmlReader reader)
@@ -25,7 +23,6 @@ namespace IntGraphLab8
             reader.ReadStartElement("Parameter");
             FilePath = reader.ReadElementContentAsString("FilePath", "");
             reader.ReadEndElement();
-            throw new NotImplementedException();
         }
     }
 }

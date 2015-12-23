@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace IntGraphLab8
 {
@@ -19,6 +20,7 @@ namespace IntGraphLab8
     {
 
         User CurrentUser;
+        ProgrammeConfig Config;
 
         public MainWindow()
         {
@@ -28,6 +30,17 @@ namespace IntGraphLab8
             PageStart.SelectedUser = CurrentUser;
             PageStart.ButtonValidateAction = UserManagement;
             ButtonConfig.IsEnabled = false;
+
+            Config = new ProgrammeConfig();
+            try
+            {
+                LoadConfigFile();
+            }
+            catch
+            {
+                MessageBox.Show("Erreur lors du chargement du fichier de configuration");
+                SaveConfigFile();
+            }
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
@@ -38,6 +51,14 @@ namespace IntGraphLab8
                 ButtonConfig.IsEnabled = false;
 
             ButtonJob_Click(sender, e);
+        }
+
+        private void LoadConfigFile()
+        {
+            using (XmlReader reader = XmlReader.Create("Config.XML"))
+            {
+                Config.ImportXML(reader);
+            }
         }
 
         private void ButtonStart_Click(object sender, RoutedEventArgs e)
@@ -84,6 +105,14 @@ namespace IntGraphLab8
                 case 4:
                     PageConfig.Visibility = Visibility.Visible;
                     break;
+            }
+        }
+
+        public void SaveConfigFile()
+        {
+            using (XmlWriter writer = XmlWriter.Create("Config.XML"))
+            {
+                Config.ExportXML(writer);
             }
         }
     }
