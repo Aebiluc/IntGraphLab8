@@ -14,6 +14,7 @@ namespace IntGraphLab8
         private void ButtonOperator_Click(object sender, RoutedEventArgs e)
         {
             SelectedUser.UserStatus = UserType.Operator;
+            
         }
 
         private void ButtonManager_Click(object sender, RoutedEventArgs e)
