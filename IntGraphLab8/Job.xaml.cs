@@ -33,7 +33,7 @@ namespace IntGraphLab8
         private void ButtonOpenRecipe_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.InitialDirectory = "\\Recettes";
+            //dlg.InitialDirectory = "Recettes\\";
             dlg.Filter = "xml files (*.xml)|*.xml";
 
             if (dlg.ShowDialog() == true)
