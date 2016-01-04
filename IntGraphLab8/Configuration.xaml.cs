@@ -22,19 +22,19 @@ namespace IntGraphLab8
     /// 
     public partial class Configuration : UserControl
     {
-        public ProgrammeConfig _ConfigFile;
+        private ProgrammeConfig _configFile;
 
         public ProgrammeConfig ConfigFile
         {
             set
             {
-                _ConfigFile = value;
+                _configFile = value;
                 ConfigFilePath.Text = value.FilePath;
             }
 
             get
             {
-                return _ConfigFile;
+                return _configFile;
             }
         }
 
@@ -46,7 +46,7 @@ namespace IntGraphLab8
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _ConfigFile.FilePath = ConfigFilePath.Text;
+            _configFile.FilePath = ConfigFilePath.Text;
         }
     }
 }
