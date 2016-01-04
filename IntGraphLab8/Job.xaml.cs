@@ -32,6 +32,9 @@ namespace IntGraphLab8
 
         private void ButtonOpenRecipe_Click(object sender, RoutedEventArgs e)
         {
+            ListBoxRecipe.Items.Clear();
+            recipe.Clear();
+
             OpenFileDialog dlg = new OpenFileDialog();
             //dlg.InitialDirectory = "Recettes\\";
             dlg.Filter = "xml files (*.xml)|*.xml";
