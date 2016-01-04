@@ -15,7 +15,7 @@
         <StackPanel Grid.Column="0">
             <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0" Click="ButtonOpenRecipe_Click"/>
             <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" IsEnabled="False"/>
-            <Button x:Name="ButtonExecute" Content="Executer" Margin="0,50,0,0"/>
+            <Button x:Name="ButtonExecute" Content="Executer" Margin="0,50,0,0" Click="ButtonExecute_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

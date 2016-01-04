@@ -53,5 +53,16 @@ namespace IntGraphLab8
                 }
             }
         }
+
+        private void ButtonExecute_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (Lot lot in recipe.items)
+            {
+                for(int i = 0; i < lot.NbBuckets; i++)
+                {
+                    
+                }
+            }
+        }
     }
 }

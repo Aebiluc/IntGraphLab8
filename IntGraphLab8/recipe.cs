@@ -15,19 +15,19 @@ namespace IntGraphLab8
 
     public class Lot : ISerialXML
     {
-        public int nbBuckets{get;set;}
-        public double[] quantity { get; set; }
-        public int id { get; set; }
+        public int NbBuckets{get;set;}
+        public double[] Quantity { get; set; }
+        public int Id { get; set; }
 
         public Lot()
         {
-            quantity = new double[4];
+            Quantity = new double[4];
         }
 
         public override string ToString()
         {
             double sum = 0;
-            foreach (double item in quantity)
+            foreach (double item in Quantity)
                 sum += item;
 
             return string.Format("**************\nid {0} \nNb Bucket : {1}\nBlue : {2}ml\nGreen : {3}ml\nYellow : {4}ml\nOrange : {5}ml\n\n Sum = {6}\n**************\n", id, nbBuckets,quantity[0], quantity[1], quantity[2], quantity[3],sum);
@@ -37,13 +37,13 @@ namespace IntGraphLab8
         {
             writer.WriteStartElement("Lot");
 
-            writer.WriteElementString("ID", id.ToString());
-            writer.WriteElementString("nBucket", nbBuckets.ToString());
+            writer.WriteElementString("ID", Id.ToString());
+            writer.WriteElementString("nBucket", NbBuckets.ToString());
 
-            writer.WriteElementString("blue", quantity[0].ToString());
-            writer.WriteElementString("green", quantity[1].ToString());
-            writer.WriteElementString("yellow", quantity[2].ToString());
-            writer.WriteElementString("orange", quantity[3].ToString());
+            writer.WriteElementString("blue", Quantity[0].ToString());
+            writer.WriteElementString("green", Quantity[1].ToString());
+            writer.WriteElementString("yellow", Quantity[2].ToString());
+            writer.WriteElementString("orange", Quantity[3].ToString());
 
             writer.WriteEndElement();
         }
@@ -52,13 +52,13 @@ namespace IntGraphLab8
         {
             reader.ReadStartElement("Lot");
 
-            id = reader.ReadElementContentAsInt("ID", "");
-            nbBuckets = reader.ReadElementContentAsInt("nBucket", "");
+            Id = reader.ReadElementContentAsInt("ID", "");
+            NbBuckets = reader.ReadElementContentAsInt("nBucket", "");
 
-            quantity[0] = reader.ReadElementContentAsDouble("blue", "");
-            quantity[1] = reader.ReadElementContentAsDouble("green", "");
-            quantity[2] = reader.ReadElementContentAsDouble("yellow", "");
-            quantity[3] = reader.ReadElementContentAsDouble("orange", "");
+            Quantity[0] = reader.ReadElementContentAsDouble("blue", "");
+            Quantity[1] = reader.ReadElementContentAsDouble("green", "");
+            Quantity[2] = reader.ReadElementContentAsDouble("yellow", "");
+            Quantity[3] = reader.ReadElementContentAsDouble("orange", "");
 
             reader.ReadEndElement();
         }
@@ -86,7 +86,7 @@ namespace IntGraphLab8
 
         public void Add(Lot lot)
         {
-            lot.id = _currentId++;
+            lot.Id = _currentId++;
             _listLot.Add(lot);
         }
 
