@@ -67,15 +67,14 @@ namespace IntGraphLab8
     public class Recipe : ISerialXML
     {
         private List<Lot> _listLot = new List<Lot>();
-        int _currentId;
-        int _nbLot;
+        private int _currentId;
         public IEnumerable items { get { return _listLot; } }
 
-        public int nblot
+        public int NbLot
         {
-            get { return _nbLot; }
+            get { return _listLot.Count; }
         }
-        public int currentId
+        public int CurrentId
         {
             get { return _currentId; }  
         }
@@ -91,7 +90,7 @@ namespace IntGraphLab8
             _listLot.Add(lot);
         }
 
-        public bool swap(int indexA, int indexB)
+        public bool Swap(int indexA, int indexB)
         {
             if (indexA < 0 || indexB < 0 || indexA > _listLot.Count - 1 || indexB > _listLot.Count - 1)
                 return false;
@@ -129,7 +128,7 @@ namespace IntGraphLab8
         {
             writer.WriteStartElement("recipe");
             writer.WriteElementString("nblot", _listLot.Count.ToString());
-            writer.WriteElementString("currentID", currentId.ToString());
+            writer.WriteElementString("currentID", CurrentId.ToString());
             foreach (Lot element in _listLot)
                 element.ExportXML(writer);
 
@@ -138,14 +137,15 @@ namespace IntGraphLab8
 
         public void ImportXML(XmlReader reader)
         {
+            int nbLot;
             if (_listLot.Count > 0)
                 _listLot.Clear();
 
             reader.ReadStartElement("recipe");
-            _nbLot = reader.ReadElementContentAsInt("nblot", "");
+            nbLot = reader.ReadElementContentAsInt("nblot", "");
             
             _currentId = reader.ReadElementContentAsInt("currentID", "");
-            for(int i=0;i< _nbLot; i++)
+            for (int i = 0; i < nbLot; i++)
             {
                 Lot lot = new Lot();
                 lot.ImportXML(reader);
