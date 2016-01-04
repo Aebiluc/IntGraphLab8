@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace IntGraphLab8
 {
-    class ProgrammeConfig : ISerialXML
+    public class ProgrammeConfig : ISerialXML
     {
         public string FilePath { get; set; }
 

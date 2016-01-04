@@ -18,7 +18,6 @@ namespace IntGraphLab8
 {
     public partial class MainWindow : Window
     {
-
         User CurrentUser;
         ProgrammeConfig Config;
 
@@ -35,6 +34,7 @@ namespace IntGraphLab8
             try
             {
                 LoadConfigFile();
+                PageConfig.ConfigFile = Config;
             }
             catch
             {
@@ -114,6 +114,11 @@ namespace IntGraphLab8
             {
                 Config.ExportXML(writer);
             }
+        }
+
+        private void asd(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveConfigFile();
         }
     }
 }
