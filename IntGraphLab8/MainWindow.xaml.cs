@@ -45,6 +45,8 @@ namespace IntGraphLab8
             }
 
             machine = new Machine("127.0.0.1", 9999);
+
+            PageJob.JobMachine = machine;
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)

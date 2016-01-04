@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using APIMAchine;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace IntGraphLab8
     public partial class Job : UserControl
     {
         private Recipe recipe;
+        //private Machine _machine;
+
+        public Machine JobMachine{ get; set; }
 
         public Job()
         {
