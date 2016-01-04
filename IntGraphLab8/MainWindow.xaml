@@ -21,11 +21,13 @@
         </Grid>
         <Grid DockPanel.Dock="top">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Content="Start" Margin="5" Width="80" Height="50"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
             <Button Grid.Column="2" Content="Stop" Margin="5" Width="80"/>
         </Grid>        
         
