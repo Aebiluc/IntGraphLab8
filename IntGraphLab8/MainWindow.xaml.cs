@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APIMAchine;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace IntGraphLab8
     {
         User CurrentUser;
         ProgrammeConfig Config;
+        Machine machine;
 
         public MainWindow()
         {
@@ -41,6 +43,8 @@ namespace IntGraphLab8
                 MessageBox.Show("Erreur lors du chargement du fichier de configuration");
                 SaveConfigFile();
             }
+
+            machine = new Machine("127.0.0.1", 9999);
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
