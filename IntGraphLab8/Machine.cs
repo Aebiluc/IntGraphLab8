@@ -9,7 +9,7 @@ namespace APIMAchine
 {
     public enum ColorTank {NONE, A,B,C,D};
 
-    class Machine
+    public class Machine
     {
         private string _ip;
         private int _port;
