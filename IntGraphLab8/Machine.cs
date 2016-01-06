@@ -31,7 +31,7 @@ namespace APIMAchine
             _BucketsLoading = true;
         }
 
-        private int Send(string command , out string answer)
+        private void Send(string command , out string answer)
         {
             byte[] commandBytes, answerBytes;
             // clean all pending messages from receive buffer before sending command
@@ -44,13 +44,12 @@ namespace APIMAchine
                 // wait and get answer as a packet of bytes, convert to string
                 answerBytes = _udpClient.Receive(ref _sender);
                 answer = Encoding.ASCII.GetString(answerBytes);
-                return 1;
+                //return 1;
             }
             catch (SocketException) {
                 answer = null;
-                return -1;
+                throw new SocketException();
             }
-        
         }
 
         public string IpAdress

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using System.Xml;
 
 namespace IntGraphLab8
@@ -21,7 +23,9 @@ namespace IntGraphLab8
     {
         User CurrentUser;
         ProgrammeConfig Config;
-        Machine machine;
+
+        Thread machineManagement;
+        MachineManagement machineWorker;
 
         public MainWindow()
         {
@@ -44,9 +48,9 @@ namespace IntGraphLab8
                 SaveConfigFile();
             }
 
-            machine = new Machine("127.0.0.1", 9999);
-
-            PageJob.JobMachine = machine;
+            machineWorker = new MachineManagement();
+            machineManagement = new Thread(machineWorker.Work);
+            machineManagement.Start();
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
@@ -122,9 +126,11 @@ namespace IntGraphLab8
             }
         }
 
-        private void asd(object sender, System.ComponentModel.CancelEventArgs e)
+        private void mainWindowsClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfigFile();
-        }
+            machineWorker.RequestStop();
+            machineManagement.Join();
+        }     
     }
 }

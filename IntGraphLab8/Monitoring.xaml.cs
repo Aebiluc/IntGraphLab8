@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using APIMAchine;
 
 namespace IntGraphLab8
 {
@@ -20,6 +21,15 @@ namespace IntGraphLab8
     /// </summary>
     public partial class Monitoring : UserControl
     {
+        private Machine _machine;
+
+        public Machine machine
+        {
+            set
+            {
+                _machine = value;
+            }
+        }
         public Monitoring()
         {
             InitializeComponent();
