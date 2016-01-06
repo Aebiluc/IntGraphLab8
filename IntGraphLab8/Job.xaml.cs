@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,7 +61,33 @@ namespace IntGraphLab8
             {
                 for(int i = 0; i < lot.NbBuckets; i++)
                 {
-                    
+                    long start;
+                    int[] temps = new int[4];
+
+                    start = DateTime.Now.Ticks;
+                    while ((DateTime.Now.Ticks - start) < temps[0])
+                        Thread.Sleep(10);
+
+                    start = DateTime.Now.Ticks;
+                    while ((DateTime.Now.Ticks - start) < temps[0])
+                        Thread.Sleep(10);
+
+                    start = DateTime.Now.Ticks;
+                    while ((DateTime.Now.Ticks - start) < temps[0])
+                        Thread.Sleep(10);
+
+                    start = DateTime.Now.Ticks;
+                    while ((DateTime.Now.Ticks - start) < temps[0])
+                        Thread.Sleep(10);
+
+                    for (int j = 0; j < lot.Quantity[0] / 10; j++)
+                        Thread.Sleep(10);
+                    for (int j = 0; j < lot.Quantity[1] / 10; j++)
+                        Thread.Sleep(10);
+                    for (int j = 0; j < lot.Quantity[2] / 10; j++)
+                        Thread.Sleep(10);
+                    for (int j = 0; j < lot.Quantity[3] / 10; j++)
+                        Thread.Sleep(10);
                 }
             }
         }
