@@ -58,7 +58,7 @@ namespace IntGraphLab8
         }
 
 
-        public void RecipeExecute(object machineManagement)
+        public void RecipeExecute(object machine)
         {
             foreach (Lot lot in recipe.items)
             {

@@ -24,7 +24,8 @@ namespace IntGraphLab8
         User CurrentUser;
         ProgrammeConfig Config;
 
-        Thread threadRecipeManagement;
+        Thread threadMachine;
+        Machine machine;
 
         public MainWindow()
         {
@@ -47,9 +48,18 @@ namespace IntGraphLab8
                 SaveConfigFile();
             }
 
+            threadMachine = new Thread(MachineExecute);
+
+        }
+
+        private void MachineExecute()
+        {
+            Thread threadRecipeManagement;
+            Mutex mutexMachine = new Mutex();
+            
             threadRecipeManagement = new Thread(new ParameterizedThreadStart(PageJob.RecipeExecute));
-            //thread starter au moment ou l'on voudra executer la recette
-            threadRecipeManagement.Start(machineWorker);
+            mutexMachine.WaitOne(); //blocage pour l'exectuion de la recette
+            threadRecipeManagement.Start(machine);
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
