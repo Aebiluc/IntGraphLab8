@@ -8,10 +8,14 @@ using System.Windows.Threading;
 
 namespace IntGraphLab8
 {
+    public delegate void MachineConnStateChange(bool status);
+
     public class MachineManagement
     {
         public Machine machine { set; get; }
-        bool exit = false;
+
+        private bool exit = false;
+        private bool _isConnected;
 
         public void Work()
         {
@@ -26,7 +30,7 @@ namespace IntGraphLab8
 
             while (!exit)
             {
-
+                
             }
 
         }
@@ -36,7 +40,6 @@ namespace IntGraphLab8
             exit = true;
         }
 
-        public delegate void MachineConnStateChange();
         public MachineConnStateChange MachineConnState { get; set; }
 
         private void CheckMachineConn(object sender, EventArgs e)
@@ -44,10 +47,21 @@ namespace IntGraphLab8
             try
             {
                 bool test = machine.ConveyorOn;
+                _isConnected = true;
+                MachineConnState(true);
             }
             catch
             {
-               
+                _isConnected = false;
+                MachineConnState(false);
+            }
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                return _isConnected;
             }
         }
 
