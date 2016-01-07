@@ -25,9 +25,6 @@ namespace IntGraphLab8
     public partial class Job : UserControl
     {
         private Recipe recipe;
-        //private Machine _machine;
-
-        public Machine JobMachine{ get; set; }
 
         public Job()
         {
@@ -57,13 +54,22 @@ namespace IntGraphLab8
 
         private void ButtonExecute_Click(object sender, RoutedEventArgs e)
         {
+            //donne l'autorisation d'executer la recette
+            //machineWorker.MutexMachine.ReleaseMutex();
+        }
+
+
+        public void RecipeExecute()
+        {
             foreach (Lot lot in recipe.items)
             {
-                for(int i = 0; i < lot.NbBuckets; i++)
+                for (int i = 0; i < lot.NbBuckets; i++)
                 {
+                    //Solution 1
                     long start;
                     int[] temps = new int[4];
 
+                    //attente d'un saut
                     start = DateTime.Now.Ticks;
                     while ((DateTime.Now.Ticks - start) < temps[0])
                         Thread.Sleep(10);
@@ -80,6 +86,9 @@ namespace IntGraphLab8
                     while ((DateTime.Now.Ticks - start) < temps[0])
                         Thread.Sleep(10);
 
+
+                    //Solution 2
+                    //attente d'un saut
                     for (int j = 0; j < lot.Quantity[0] / 10; j++)
                         Thread.Sleep(10);
                     for (int j = 0; j < lot.Quantity[1] / 10; j++)

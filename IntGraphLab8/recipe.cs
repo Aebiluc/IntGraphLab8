@@ -30,7 +30,7 @@ namespace IntGraphLab8
             foreach (double item in Quantity)
                 sum += item;
 
-            return string.Format("**************\nid {0} \nNb Bucket : {1}\nBlue : {2}ml\nGreen : {3}ml\nYellow : {4}ml\nOrange : {5}ml\n\n Sum = {6}\n**************\n", id, nbBuckets,quantity[0], quantity[1], quantity[2], quantity[3],sum);
+            return string.Format("**************\nid {0} \nNb Bucket : {1}\nBlue : {2}ml\nGreen : {3}ml\nYellow : {4}ml\nOrange : {5}ml\n\n Sum = {6}\n**************\n", Id, NbBuckets, Quantity[0], Quantity[1], Quantity[2], Quantity[3],sum);
         }
 
         public void ExportXML(XmlWriter writer)
@@ -110,7 +110,7 @@ namespace IntGraphLab8
         public void Insert(int index, Lot lot)
         {
             _listLot.Insert(index, lot);
-            lot.id = _currentId++;
+            lot.Id = _currentId++;
         }
 
         public Lot GetItem(int index)

@@ -33,7 +33,8 @@ namespace IntGraphLab8
 
             while (!exit)
             {
-                
+                MutexMachine.WaitOne();
+                //code pour la recette
             }
 
         }
