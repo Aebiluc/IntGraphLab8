@@ -20,6 +20,11 @@ namespace IntGraphLab8
         private bool exit = false;
         private bool _isConnected;
 
+        public MachineManagement()
+        {
+            MutexMachine = new Mutex();
+        }
+
         public void Work()
         {
             DispatcherTimer MachineAvaliable;

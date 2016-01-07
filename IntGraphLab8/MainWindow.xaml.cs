@@ -48,7 +48,7 @@ namespace IntGraphLab8
                 SaveConfigFile();
             }
 
-            machineWorker.MutexMachine.WaitOne();
+            //machineWorker.MutexMachine.WaitOne();
 
             machineWorker = new MachineManagement();
             threadMachineManagement = new Thread(machineWorker.Work);
