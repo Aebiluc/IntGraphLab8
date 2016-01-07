@@ -24,9 +24,7 @@ namespace IntGraphLab8
         User CurrentUser;
         ProgrammeConfig Config;
 
-        Thread threadMachineManagement;
         Thread threadRecipeManagement;
-        MachineManagement machineWorker;
 
         public MainWindow()
         {
@@ -49,9 +47,6 @@ namespace IntGraphLab8
                 SaveConfigFile();
             }
 
-            machineWorker = new MachineManagement();
-            threadMachineManagement = new Thread(machineWorker.Work);
-            threadMachineManagement.Start();
             threadRecipeManagement = new Thread(new ParameterizedThreadStart(PageJob.RecipeExecute));
             //thread starter au moment ou l'on voudra executer la recette
             threadRecipeManagement.Start(machineWorker);
@@ -133,8 +128,6 @@ namespace IntGraphLab8
         private void mainWindowsClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfigFile();
-            machineWorker.RequestStop();
-            threadMachineManagement.Join();
-        }     
+        }
     }
 }
