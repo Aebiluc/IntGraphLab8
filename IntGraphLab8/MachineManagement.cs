@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using APIMAchine;
 using System.Windows.Threading;
+using System.Threading;
 
 namespace IntGraphLab8
 {
@@ -13,6 +14,8 @@ namespace IntGraphLab8
     public class MachineManagement
     {
         public Machine machine { set; get; }
+
+        public Mutex MutexMachine { set; get; }
 
         private bool exit = false;
         private bool _isConnected;

@@ -27,8 +27,6 @@ namespace IntGraphLab8
         Thread threadMachineManagement;
         MachineManagement machineWorker;
 
-        static Mutex mutexMachine = new Mutex();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -50,7 +48,7 @@ namespace IntGraphLab8
                 SaveConfigFile();
             }
 
-            mutexMachine.WaitOne();
+            machineWorker.MutexMachine.WaitOne();
 
             machineWorker = new MachineManagement();
             threadMachineManagement = new Thread(machineWorker.Work);
