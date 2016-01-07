@@ -25,7 +25,6 @@ namespace IntGraphLab8
         ProgrammeConfig Config;
 
         Thread machineManagement;
-        MachineManagement machineWorker;
 
         public MainWindow()
         {
@@ -47,10 +46,8 @@ namespace IntGraphLab8
                 MessageBox.Show("Erreur lors du chargement du fichier de configuration");
                 SaveConfigFile();
             }
-
-            machineWorker = new MachineManagement();
-            machineManagement = new Thread(machineWorker.Work);
-            machineManagement.Start();
+                        
+           
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
@@ -129,8 +126,7 @@ namespace IntGraphLab8
         private void mainWindowsClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfigFile();
-            machineWorker.RequestStop();
-            machineManagement.Join();
-        }     
+        }  
+        
     }
 }

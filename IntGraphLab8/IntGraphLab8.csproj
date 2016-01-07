@@ -62,7 +62,6 @@
       <DependentUpon>Job.xaml</DependentUpon>
     </Compile>
     <Compile Include="Machine.cs" />
-    <Compile Include="MachineManagement.cs" />
     <Compile Include="Monitoring.xaml.cs">
       <DependentUpon>Monitoring.xaml</DependentUpon>
     </Compile>
