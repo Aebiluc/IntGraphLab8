@@ -24,8 +24,10 @@ namespace IntGraphLab8
         User CurrentUser;
         ProgrammeConfig Config;
 
-        Thread machineManagement;
+        Thread threadMachineManagement;
         MachineManagement machineWorker;
+
+        static Mutex mutexMachine = new Mutex();
 
         public MainWindow()
         {
@@ -48,9 +50,11 @@ namespace IntGraphLab8
                 SaveConfigFile();
             }
 
+            mutexMachine.WaitOne();
+
             machineWorker = new MachineManagement();
-            machineManagement = new Thread(machineWorker.Work);
-            machineManagement.Start();
+            threadMachineManagement = new Thread(machineWorker.Work);
+            threadMachineManagement.Start();
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
@@ -130,7 +134,7 @@ namespace IntGraphLab8
         {
             SaveConfigFile();
             machineWorker.RequestStop();
-            machineManagement.Join();
+            threadMachineManagement.Join();
         }     
     }
 }
