@@ -55,7 +55,6 @@ namespace IntGraphLab8
         private void ButtonExecute_Click(object sender, RoutedEventArgs e)
         {
             //donne l'autorisation d'executer la recette
-            //machineWorker.MutexMachine.ReleaseMutex();
         }
 
 

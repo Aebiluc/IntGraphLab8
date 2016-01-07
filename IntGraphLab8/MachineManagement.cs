@@ -14,16 +14,10 @@ namespace IntGraphLab8
     public class MachineManagement
     {
         public Machine machine { set; get; }
-
-        public Mutex MutexMachine { set; get; }
+        
 
         private bool exit = false;
         private bool _isConnected;
-
-        public MachineManagement()
-        {
-            MutexMachine = new Mutex();
-        }
 
         public void Work()
         {
@@ -38,7 +32,6 @@ namespace IntGraphLab8
 
             while (!exit)
             {
-                MutexMachine.WaitOne();
                 //code pour la recette
             }
 
