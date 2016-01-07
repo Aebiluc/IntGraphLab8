@@ -24,6 +24,8 @@ namespace IntGraphLab8
     /// </summary>
     public partial class Job : UserControl
     {
+        public Global Gloabal { get; set; }
+
         private Recipe recipe;
 
         public Job()
@@ -58,7 +60,7 @@ namespace IntGraphLab8
         }
 
 
-        public void RecipeExecute(object machine)
+        public void RecipeExecute()
         {
             foreach (Lot lot in recipe.items)
             {
