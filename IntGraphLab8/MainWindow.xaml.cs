@@ -26,6 +26,7 @@ namespace IntGraphLab8
         public Mutex MutexMachine { get; set; }
         public Mutex MutexRecipe { get; set; }
         public Machine Machine { get; set; }
+        public bool Exit { get; set; }
 
         public Global()
         {
@@ -63,18 +64,15 @@ namespace IntGraphLab8
             }
             //initialisation pour les variables globales
             global = new Global();
-            PageJob.Gloabal = global;
+            global.Exit = false;
+            PageJob.Global = global;
+            PageMonitoring.Global = global;
 
-
-            global.ThreadMachine = new Thread(MachineExecute);
-
-        }
-
-        private void MachineExecute()
-        {
+            global.ThreadMachine = new Thread(PageMonitoring.MachineExecute);
             global.ThreadRecipe = new Thread(PageJob.RecipeExecute);
-            global.MutexRecipe.WaitOne(); //blocage pour l'exectuion de la recette
-            global.ThreadRecipe.Start();
+            global.Machine = new Machine("127.0.0.1", 9999);
+
+            global.ThreadMachine.Start();
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)

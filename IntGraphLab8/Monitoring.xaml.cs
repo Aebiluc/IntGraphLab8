@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using APIMAchine;
+using System.Threading;
+using System.Windows.Threading;
 
 namespace IntGraphLab8
 {
@@ -21,18 +23,39 @@ namespace IntGraphLab8
     /// </summary>
     public partial class Monitoring : UserControl
     {
-        private Machine _machine;
+        public Global Global { get; set; }
 
-        public Machine machine
-        {
-            set
-            {
-                _machine = value;
-            }
-        }
         public Monitoring()
         {
             InitializeComponent();
         }
+
+
+        /*                   Gestion de la connection avec la machine                   */
+        public void MachineExecute()
+        {
+            Global.MutexRecipe.WaitOne(); //blocage pour l'exectuion de la recette
+            Global.ThreadRecipe.Start();
+
+            DispatcherTimer machineConnectionCheck = new DispatcherTimer();
+            machineConnectionCheck.Tick += new EventHandler(MachineConnectionCheck_Tick);
+            machineConnectionCheck.Interval = new TimeSpan(0, 0, 0, 100);
+            machineConnectionCheck.Start();
+            while (!Global.Exit)
+                Thread.Sleep(10);
+        }
+
+        public void MachineConnectionCheck_Tick(object sender, EventArgs e)
+        {
+            Global.MutexMachine.WaitOne();
+            try {
+                bool tmp = Global.Machine.ConveyorOn;
+                ;//changement sur l'interface
+            } catch {
+                ;//changement sur l'interface
+            }
+            Global.MutexMachine.ReleaseMutex();
+        }
+        /*                   Gestion de la connection avec la machine                   */
     }
 }
