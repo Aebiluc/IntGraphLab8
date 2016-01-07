@@ -58,7 +58,7 @@ namespace IntGraphLab8
         }
 
 
-        public void RecipeExecute()
+        public void RecipeExecute(object machineManagement)
         {
             foreach (Lot lot in recipe.items)
             {
@@ -68,6 +68,8 @@ namespace IntGraphLab8
                     long start;
                     int[] temps = new int[4];
 
+                    //10ms correspondent à 0.4ml --> temps = 10*Qté/0.4
+
                     //attente d'un saut
                     start = DateTime.Now.Ticks;
                     while ((DateTime.Now.Ticks - start) < temps[0])
@@ -86,16 +88,6 @@ namespace IntGraphLab8
                         Thread.Sleep(10);
 
 
-                    //Solution 2
-                    //attente d'un saut
-                    for (int j = 0; j < lot.Quantity[0] / 10; j++)
-                        Thread.Sleep(10);
-                    for (int j = 0; j < lot.Quantity[1] / 10; j++)
-                        Thread.Sleep(10);
-                    for (int j = 0; j < lot.Quantity[2] / 10; j++)
-                        Thread.Sleep(10);
-                    for (int j = 0; j < lot.Quantity[3] / 10; j++)
-                        Thread.Sleep(10);
                 }
             }
         }

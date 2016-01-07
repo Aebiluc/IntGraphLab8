@@ -52,8 +52,9 @@ namespace IntGraphLab8
             machineWorker = new MachineManagement();
             threadMachineManagement = new Thread(machineWorker.Work);
             threadMachineManagement.Start();
-            threadRecipeManagement = new Thread(PageJob.RecipeExecute);
+            threadRecipeManagement = new Thread(new ParameterizedThreadStart(PageJob.RecipeExecute));
             //thread starter au moment ou l'on voudra executer la recette
+            threadRecipeManagement.Start(machineWorker);
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
