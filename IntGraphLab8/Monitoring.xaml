@@ -5,13 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IntGraphLab8"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
-        <GroupBox Header="Connexion" Padding="5">
-            <StackPanel Orientation="Horizontal">
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Connexion" Padding="5">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Satus de la connexion : "/>
                 <TextBlock Text="Connexion" />
             </StackPanel>
         </GroupBox>
-    </StackPanel>
+        <GroupBox Grid.Column="1" Grid.Row="0" Header="Convoyeur" Padding="10">
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5">
+                    <TextBlock Text="Etat :    " VerticalAlignment="Center"/>
+                    <Image Name="ConveyorGear" Source="Image/gear_off.png" Height="30" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBlock Text="Chargement des sceaux : "/>
+                    <TextBlock Text="Activé "/>
+                </StackPanel>
+
+            </StackPanel>
+        </GroupBox>
+    </Grid>
 </UserControl>

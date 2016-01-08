@@ -22,6 +22,7 @@ namespace IntGraphLab8
     public partial class Monitoring : UserControl
     {
         private Machine _machine;
+        private bool ConveyorLoading = false;
 
         public Machine machine
         {
@@ -33,6 +34,14 @@ namespace IntGraphLab8
         public Monitoring()
         {
             InitializeComponent();
+
+            BitmapImage bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri("Image/gear_off.png", UriKind.Relative);
+            bi3.EndInit();
+
+            ConveyorGear.Source = bi3;
+
         }
     }
 }

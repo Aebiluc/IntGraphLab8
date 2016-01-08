@@ -59,6 +59,7 @@ namespace IntGraphLab8
             
             threadRecipeManagement = new Thread(new ParameterizedThreadStart(PageJob.RecipeExecute));
             mutexMachine.WaitOne(); //blocage pour l'exectuion de la recette
+            
             threadRecipeManagement.Start(machine);
         }
 
