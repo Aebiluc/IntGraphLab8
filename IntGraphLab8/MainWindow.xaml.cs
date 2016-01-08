@@ -23,15 +23,14 @@ namespace IntGraphLab8
     {
         public Thread ThreadRecipe { get; set; }
         public Thread ThreadMachine { get; set; }
-        public Mutex MutexMachine { get; set; }
-        public Mutex MutexRecipe { get; set; }
+        public SemaphoreSlim SemaphoreMachine { get; set; }
+        public SemaphoreSlim SemaphoreRecipe { get; set; }
         public Machine Machine { get; set; }
-        public bool Exit { get; set; }
 
         public Global()
         {
-            MutexMachine = new Mutex();
-            MutexRecipe = new Mutex();
+            SemaphoreMachine = new SemaphoreSlim(1);
+            SemaphoreRecipe = new SemaphoreSlim(0);
         }
     }
 
@@ -64,7 +63,6 @@ namespace IntGraphLab8
             }
             //initialisation pour les variables globales
             global = new Global();
-            global.Exit = false;
             PageJob.Global = global;
             PageMonitoring.Global = global;
 
@@ -73,6 +71,7 @@ namespace IntGraphLab8
             global.Machine = new Machine("127.0.0.1", 9999);
            
             global.ThreadMachine.Start();
+            global.ThreadRecipe.Start();
 
         }
 
@@ -152,6 +151,8 @@ namespace IntGraphLab8
         private void mainWindowsClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfigFile();
+            global.ThreadRecipe.Abort();
+            global.ThreadMachine.Abort();
         }
     }
 }
