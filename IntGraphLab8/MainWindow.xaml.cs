@@ -19,13 +19,28 @@ using System.Xml;
 
 namespace IntGraphLab8
 {
+    public class Global
+    {
+        public Thread ThreadRecipe { get; set; }
+        public Thread ThreadMachine { get; set; }
+        public Mutex MutexMachine { get; set; }
+        public Mutex MutexRecipe { get; set; }
+        public Machine Machine { get; set; }
+        public bool Exit { get; set; }
+
+        public Global()
+        {
+            MutexMachine = new Mutex();
+            MutexRecipe = new Mutex();
+        }
+    }
+
+
     public partial class MainWindow : Window
     {
         User CurrentUser;
         ProgrammeConfig Config;
-
-        Thread threadMachine;
-        Machine machine;
+        Global global;
 
         public MainWindow()
         {
@@ -47,20 +62,18 @@ namespace IntGraphLab8
                 MessageBox.Show("Erreur lors du chargement du fichier de configuration");
                 SaveConfigFile();
             }
+            //initialisation pour les variables globales
+            global = new Global();
+            global.Exit = false;
+            PageJob.Global = global;
+            PageMonitoring.Global = global;
 
-            threadMachine = new Thread(MachineExecute);
+            global.ThreadMachine = new Thread(PageMonitoring.MachineExecute);
+            global.ThreadRecipe = new Thread(PageJob.RecipeExecute);
+            global.Machine = new Machine("127.0.0.1", 9999);
+           
+            global.ThreadMachine.Start();
 
-        }
-
-        private void MachineExecute()
-        {
-            Thread threadRecipeManagement;
-            Mutex mutexMachine = new Mutex();
-            
-            threadRecipeManagement = new Thread(new ParameterizedThreadStart(PageJob.RecipeExecute));
-            mutexMachine.WaitOne(); //blocage pour l'exectuion de la recette
-            
-            threadRecipeManagement.Start(machine);
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)

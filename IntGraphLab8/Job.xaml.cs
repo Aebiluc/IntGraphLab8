@@ -24,6 +24,8 @@ namespace IntGraphLab8
     /// </summary>
     public partial class Job : UserControl
     {
+        public Global Global { get; set; }
+
         private Recipe recipe;
 
         public Job()
@@ -58,36 +60,40 @@ namespace IntGraphLab8
         }
 
 
-        public void RecipeExecute(object machine)
+        public void RecipeExecute()
         {
-            foreach (Lot lot in recipe.items)
+            while (Global.Exit)
             {
-                for (int i = 0; i < lot.NbBuckets; i++)
+                Global.MutexRecipe.WaitOne();
+                foreach (Lot lot in recipe.items)
                 {
-                    //Solution 1
-                    long start;
-                    int[] temps = new int[4];
+                    for (int i = 0; i < lot.NbBuckets; i++)
+                    {
+                        //Solution 1
+                        long start;
+                        int[] temps = new int[4];
 
-                    //10ms correspondent à 0.4ml --> temps = 10*Qté/0.4
+                        //10ms correspondent à 0.4ml --> temps = 10*Qté/0.4
 
-                    //attente d'un saut
-                    start = DateTime.Now.Ticks;
-                    while ((DateTime.Now.Ticks - start) < temps[0])
-                        Thread.Sleep(10);
+                        //attente d'un saut
+                        start = DateTime.Now.Ticks;
+                        while ((DateTime.Now.Ticks - start) < temps[0])
+                            Thread.Sleep(10);
 
-                    start = DateTime.Now.Ticks;
-                    while ((DateTime.Now.Ticks - start) < temps[0])
-                        Thread.Sleep(10);
+                        start = DateTime.Now.Ticks;
+                        while ((DateTime.Now.Ticks - start) < temps[0])
+                            Thread.Sleep(10);
 
-                    start = DateTime.Now.Ticks;
-                    while ((DateTime.Now.Ticks - start) < temps[0])
-                        Thread.Sleep(10);
+                        start = DateTime.Now.Ticks;
+                        while ((DateTime.Now.Ticks - start) < temps[0])
+                            Thread.Sleep(10);
 
-                    start = DateTime.Now.Ticks;
-                    while ((DateTime.Now.Ticks - start) < temps[0])
-                        Thread.Sleep(10);
+                        start = DateTime.Now.Ticks;
+                        while ((DateTime.Now.Ticks - start) < temps[0])
+                            Thread.Sleep(10);
 
 
+                    }
                 }
             }
         }
