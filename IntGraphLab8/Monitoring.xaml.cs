@@ -37,24 +37,22 @@ namespace IntGraphLab8
             Global.MutexRecipe.WaitOne(); //blocage pour l'exectuion de la recette
             Global.ThreadRecipe.Start();
 
-            DispatcherTimer machineConnectionCheck = new DispatcherTimer();
-            machineConnectionCheck.Tick += new EventHandler(MachineConnectionCheck_Tick);
-            machineConnectionCheck.Interval = new TimeSpan(0, 0, 0, 100);
-            machineConnectionCheck.Start();
-            while (!Global.Exit)
-                Thread.Sleep(10);
-        }
 
-        public void MachineConnectionCheck_Tick(object sender, EventArgs e)
-        {
-            Global.MutexMachine.WaitOne();
-            try {
-                bool tmp = Global.Machine.ConveyorOn;
-                ;//changement sur l'interface
-            } catch {
-                ;//changement sur l'interface
+            while (true)
+            {
+                Thread.Sleep(100);
+                Global.MutexMachine.WaitOne();
+                try
+                {
+                    bool tmp = Global.Machine.ConveyorOn;
+                    ;//changement sur l'interface
+                }
+                catch
+                {
+                    ;//changement sur l'interface
+                }
+                Global.MutexMachine.ReleaseMutex();
             }
-            Global.MutexMachine.ReleaseMutex();
         }
         /*                   Gestion de la connection avec la machine                   */
     }

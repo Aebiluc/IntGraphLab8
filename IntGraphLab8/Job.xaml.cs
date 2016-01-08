@@ -62,37 +62,67 @@ namespace IntGraphLab8
 
         public void RecipeExecute()
         {
-            while (Global.Exit)
+            while (true)
             {
                 Global.MutexRecipe.WaitOne();
                 foreach (Lot lot in recipe.items)
                 {
                     for (int i = 0; i < lot.NbBuckets; i++)
                     {
-                        //Solution 1
                         long start;
                         int[] temps = new int[4];
 
                         //10ms correspondent à 0.4ml --> temps = 10*Qté/0.4
 
                         //attente d'un saut
+                        while (true)
+                        {
+                            Global.MutexMachine.WaitOne();
+                            if (Global.Machine.BucketLocked)
+                            {
+                                Global.MutexMachine.ReleaseMutex();
+                                break;
+                            }
+                            Global.MutexMachine.ReleaseMutex();
+                            Thread.Sleep(100);
+                        }
+
+                        //Tank A
+                        Global.MutexMachine.WaitOne();
+                        Global.Machine.SetColorTank = ColorTank.A;
+                        Global.MutexMachine.ReleaseMutex();
                         start = DateTime.Now.Ticks;
                         while ((DateTime.Now.Ticks - start) < temps[0])
                             Thread.Sleep(10);
 
+                        //Tank B
+                        Global.MutexMachine.WaitOne();
+                        Global.Machine.SetColorTank = ColorTank.B;
+                        Global.MutexMachine.ReleaseMutex();
                         start = DateTime.Now.Ticks;
                         while ((DateTime.Now.Ticks - start) < temps[0])
                             Thread.Sleep(10);
 
+                        //Tank C
+                        Global.MutexMachine.WaitOne();
+                        Global.Machine.SetColorTank = ColorTank.C;
+                        Global.MutexMachine.ReleaseMutex();
                         start = DateTime.Now.Ticks;
                         while ((DateTime.Now.Ticks - start) < temps[0])
                             Thread.Sleep(10);
 
+                        //Tank D
+                        Global.MutexMachine.WaitOne();
+                        Global.Machine.SetColorTank = ColorTank.D;
+                        Global.MutexMachine.ReleaseMutex();
                         start = DateTime.Now.Ticks;
                         while ((DateTime.Now.Ticks - start) < temps[0])
                             Thread.Sleep(10);
 
-
+                        //Tank None
+                        Global.MutexMachine.WaitOne();
+                        Global.Machine.SetColorTank = ColorTank.NONE;
+                        Global.MutexMachine.ReleaseMutex();
                     }
                 }
             }

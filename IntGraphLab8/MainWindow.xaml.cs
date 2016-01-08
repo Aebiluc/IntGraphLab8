@@ -26,7 +26,6 @@ namespace IntGraphLab8
         public Mutex MutexMachine { get; set; }
         public Mutex MutexRecipe { get; set; }
         public Machine Machine { get; set; }
-        public bool Exit { get; set; }
 
         public Global()
         {
@@ -64,7 +63,6 @@ namespace IntGraphLab8
             }
             //initialisation pour les variables globales
             global = new Global();
-            global.Exit = false;
             PageJob.Global = global;
             PageMonitoring.Global = global;
 
@@ -151,6 +149,8 @@ namespace IntGraphLab8
         private void mainWindowsClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfigFile();
+            global.ThreadRecipe.Abort();
+            global.ThreadMachine.Abort();
         }
     }
 }
