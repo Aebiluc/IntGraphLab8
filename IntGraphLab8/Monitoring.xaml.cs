@@ -34,14 +34,10 @@ namespace IntGraphLab8
         /*                   Gestion de la connection avec la machine                   */
         public void MachineExecute()
         {
-            Global.MutexRecipe.WaitOne(); //blocage pour l'exectuion de la recette
-            Global.ThreadRecipe.Start();
-
-
             while (true)
             {
                 Thread.Sleep(100);
-                Global.MutexMachine.WaitOne();
+                Global.SemaphoreMachine.Wait();
                 try
                 {
                     bool tmp = Global.Machine.ConveyorOn;
@@ -51,7 +47,7 @@ namespace IntGraphLab8
                 {
                     ;//changement sur l'interface
                 }
-                Global.MutexMachine.ReleaseMutex();
+                Global.SemaphoreMachine.Release();
             }
         }
         /*                   Gestion de la connection avec la machine                   */
