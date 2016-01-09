@@ -43,8 +43,8 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Source="Image/BlueBucket.png" Margin="0,0,80,10" Visibility="Hidden"/>
-                <Image Grid.Row="1" Source="Image/Bucket.png" Margin="0,10,0,0" Visibility="Hidden"/>
+                <Image Name="ImageDeliveryBucket" Source="Image/BlueBucket.png" Margin="0,0,80,10" Visibility="Hidden"/>
+                <Image Name="ImageBucketLocked" Grid.Row="1" Source="Image/Bucket.png" Margin="0,10,0,0" Visibility="Hidden"/>
             </Grid>
         </GroupBox>
     </Grid>

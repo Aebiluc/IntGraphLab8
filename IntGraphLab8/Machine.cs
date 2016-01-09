@@ -20,6 +20,7 @@ namespace APIMAchine
        
 
         private bool _BucketsLoading;
+        private ColorTank CurrentDeliveryColor;
 
         public Machine(string ip, int port)
         {
@@ -130,30 +131,51 @@ namespace APIMAchine
                     case ColorTank.A:
                         Send("PaintA", out _answer);
                         if (_answer == "Ok")
+                        {
+                            CurrentDeliveryColor = ColorTank.A;
                             return;
+                        } 
                         break;
                     case ColorTank.B:
                         Send("PaintB", out _answer);
                         if (_answer == "Ok")
+                        {
+                            CurrentDeliveryColor = ColorTank.B;
                             return;
+                        }
                         break;
                     case ColorTank.C:
                         Send("PaintC", out _answer);
                         if (_answer == "Ok")
+                        {
+                            CurrentDeliveryColor = ColorTank.C;
                             return;
+                        }
                         break;
                     case ColorTank.D:
                         Send("PaintD", out _answer);
                         if (_answer == "Ok")
+                        {
+                            CurrentDeliveryColor = ColorTank.D;
                             return;
+                        }
                         break;
                     case ColorTank.NONE:
                         Send("PaintNone", out _answer);
                         if (_answer == "Ok")
+                        {
+                            CurrentDeliveryColor = ColorTank.NONE;
                             return;
+                        }
                         break;
                 }
-            }               
+            }
+
+            get
+            {
+
+                return CurrentDeliveryColor;
+            }              
         }
     }
 }

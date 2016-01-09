@@ -24,11 +24,12 @@ namespace IntGraphLab8
     public partial class Monitoring : UserControl
     {
 
-        private Machine _machine;
-        private bool ConveyorLoading = false;
-
         public Global Global { get; set; }
 
+        public bool IsConveyorOn { get; private set; }
+        public bool IsBucketLocked { get; private set; }
+        public ColorTank CurrentDeliveredColor { get; private set; }
+       
 
         public Monitoring()
         {
@@ -53,7 +54,9 @@ namespace IntGraphLab8
                 Global.SemaphoreMachine.Wait();
                 try
                 {
-                    bool tmp = Global.Machine.ConveyorOn;
+                    IsConveyorOn = Global.Machine.ConveyorOn;
+                    IsBucketLocked = Global.Machine.BucketLocked;
+                    CurrentDeliveredColor = Global.Machine.SetColorTank;
 
                     Dispatcher.Invoke(new Action(() =>
                     {
@@ -62,13 +65,55 @@ namespace IntGraphLab8
 
                         BitmapImage bi3 = new BitmapImage();
                         bi3.BeginInit();
-                        if (tmp)
+                        if (IsConveyorOn)
                             bi3.UriSource = new Uri("Image/gear_on.png", UriKind.Relative);
                         else
                             bi3.UriSource = new Uri("Image/gear_off.png", UriKind.Relative);
                         bi3.EndInit();
 
                         ConveyorGear.Source = bi3;
+
+                        if (IsBucketLocked)
+                            ImageBucketLocked.Visibility = Visibility.Visible;
+                        else
+                            ImageBucketLocked.Visibility = Visibility.Hidden;
+
+
+                        BitmapImage bi2 = new BitmapImage();
+                        bi2.BeginInit();
+
+                        switch (CurrentDeliveredColor)
+                        {
+                            case ColorTank.A:
+                                bi2.UriSource = new Uri("Image/BlueBucket.png", UriKind.Relative);
+                                ImageDeliveryBucket.Visibility = Visibility.Visible;
+                                break;
+
+                            case ColorTank.B:
+                                bi2.UriSource = new Uri("Image/GreenBucket.png", UriKind.Relative);
+                                ImageDeliveryBucket.Visibility = Visibility.Visible;
+                                break;
+
+                            case ColorTank.C:
+                                bi2.UriSource = new Uri("Image/YellowBucket.png", UriKind.Relative);
+                                ImageDeliveryBucket.Visibility = Visibility.Visible;
+                                break;
+
+                            case ColorTank.D:
+                                bi2.UriSource = new Uri("Image/OrangeBucket.png", UriKind.Relative);
+                                ImageDeliveryBucket.Visibility = Visibility.Visible;
+                                break;
+
+                            case ColorTank.NONE:
+                                bi2.UriSource = new Uri("Image/OrangeBucket.png", UriKind.Relative);
+                                ImageDeliveryBucket.Visibility = Visibility.Hidden;
+                                break;
+                        }
+
+                        bi2.EndInit();
+                        ImageDeliveryBucket.Source = bi2;
+
+
                     }));
                 }
                 catch
