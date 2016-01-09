@@ -64,6 +64,8 @@ namespace APIMAchine
             set { _port = value; }
         }
 
+        public bool Connected { get; set; }
+
         public bool ConveyorOn
         {
             get

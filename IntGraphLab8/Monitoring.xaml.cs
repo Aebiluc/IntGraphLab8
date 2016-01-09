@@ -58,6 +58,7 @@ namespace IntGraphLab8
                     Dispatcher.Invoke(new Action(() =>
                     {
                         TextBlockConnection.Text = "Connecté";
+                        Global.Machine.Connected = true;
 
                         BitmapImage bi3 = new BitmapImage();
                         bi3.BeginInit();
@@ -74,7 +75,11 @@ namespace IntGraphLab8
                 }
                 catch
                 {
-                    Dispatcher.Invoke(new Action(() => { TextBlockConnection.Text = "Non-Connecté"; }));
+                    Dispatcher.Invoke(new Action(() => 
+                    {
+                        TextBlockConnection.Text = "Non-Connecté";
+                        Global.Machine.Connected = false;
+                    }));
                 }
                 Global.SemaphoreMachine.Release();
             }

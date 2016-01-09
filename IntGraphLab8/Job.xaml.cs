@@ -76,81 +76,94 @@ namespace IntGraphLab8
         public void RecipeExecute()
         {
             Global.SemaphoreRecipe.Wait();
-            Global.SemaphoreMachine.Wait();
-            Global.Machine.BucketLoadingEnabled = true;
-            Global.Machine.StartConveyor();
-            Global.SemaphoreMachine.Release();
+            if (Global.Machine.Connected)
+            {
+                Global.SemaphoreMachine.Wait();
+
+                //active le convoyeur avec l'arrivée des sauts
+                Global.Machine.BucketLoadingEnabled = true;
+                Global.Machine.StartConveyor();
+
+
+                Global.SemaphoreMachine.Release();
+            }
             Global.SemaphoreRecipe.Release();
             while (true)
             {
                 Global.SemaphoreRecipe.Wait();
-                //active le convoyeur avec l'arrivée des sauts
 
-                foreach (Lot lot in recipe.items)
-                {
-                    for (int i = 0; i < lot.NbBuckets; i++)
+                //Check que la machine soit connectée
+                Global.SemaphoreMachine.Wait();
+                bool connect = Global.Machine.Connected;
+                Global.SemaphoreMachine.Release();
+                if(connect)
+                    foreach (Lot lot in recipe.items)
                     {
-                        long start;
-                        double temps;
-
-                        //attente d'un saut
-                        while (true)
+                        for (int i = 0; i < lot.NbBuckets; i++)
                         {
-                            Global.SemaphoreMachine.Wait();
-                            if (Global.Machine.BucketLocked)
+                            long start;
+                            double temps;
+
+                            //attente d'un saut
+                            while (true)
                             {
+                                Global.SemaphoreMachine.Wait();
+                                if (Global.Machine.BucketLocked)
+                                {
+                                    Global.SemaphoreMachine.Release();
+                                    break;
+                                }
                                 Global.SemaphoreMachine.Release();
-                                break;
+                                Thread.Sleep(100);
                             }
+
+                            /*    10ml/s --> temps = Qté/10 *1000 [ms]    */
+
+                            //Tank A
+                            temps = 100 * lot.Quantity[0];
+                            Global.SemaphoreMachine.Wait();
+                            Global.Machine.SetColorTank = ColorTank.A;
                             Global.SemaphoreMachine.Release();
-                            Thread.Sleep(100);
+                            start = DateTime.Now.Ticks;
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                                Thread.Sleep(10);
+
+                            //Tank B
+                            temps = 100 * lot.Quantity[1];
+                            Global.SemaphoreMachine.Wait();
+                            Global.Machine.SetColorTank = ColorTank.B;
+                            Global.SemaphoreMachine.Release();
+                            start = DateTime.Now.Ticks;
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                                Thread.Sleep(10);
+
+                            //Tank C
+                            temps = 100 * lot.Quantity[2];
+                            Global.SemaphoreMachine.Wait();
+                            Global.Machine.SetColorTank = ColorTank.C;
+                            Global.SemaphoreMachine.Release();
+                            start = DateTime.Now.Ticks;
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                                Thread.Sleep(10);
+
+                            //Tank D
+                            temps = 100 * lot.Quantity[3];
+                            Global.SemaphoreMachine.Wait();
+                            Global.Machine.SetColorTank = ColorTank.D;
+                            Global.SemaphoreMachine.Release();
+                            start = DateTime.Now.Ticks;
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                                Thread.Sleep(10);
+
+                            //Tank None et relancement du convoyeur
+                            Global.SemaphoreMachine.Wait();
+                            Global.Machine.SetColorTank = ColorTank.NONE;
+                            Global.Machine.StartConveyor();
+                            Global.SemaphoreMachine.Release();
                         }
-
-                        /*    10ml/s --> temps = Qté/10 *1000 [ms]    */
-
-                        //Tank A
-                        temps = 100 * lot.Quantity[0];
-                        Global.SemaphoreMachine.Wait();
-                        Global.Machine.SetColorTank = ColorTank.A;
-                        Global.SemaphoreMachine.Release();
-                        start = DateTime.Now.Ticks;
-                        while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
-                            Thread.Sleep(10);
-
-                        //Tank B
-                        temps = 100 * lot.Quantity[1];
-                        Global.SemaphoreMachine.Wait();
-                        Global.Machine.SetColorTank = ColorTank.B;
-                        Global.SemaphoreMachine.Release();
-                        start = DateTime.Now.Ticks;
-                        while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
-                            Thread.Sleep(10);
-
-                        //Tank C
-                        temps = 100 * lot.Quantity[2];
-                        Global.SemaphoreMachine.Wait();
-                        Global.Machine.SetColorTank = ColorTank.C;
-                        Global.SemaphoreMachine.Release();
-                        start = DateTime.Now.Ticks;
-                        while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
-                            Thread.Sleep(10);
-
-                        //Tank D
-                        temps = 100 * lot.Quantity[3];
-                        Global.SemaphoreMachine.Wait();
-                        Global.Machine.SetColorTank = ColorTank.D;
-                        Global.SemaphoreMachine.Release();
-                        start = DateTime.Now.Ticks;
-                        while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
-                            Thread.Sleep(10);
-
-                        //Tank None et relancement du convoyeur
-                        Global.SemaphoreMachine.Wait();
-                        Global.Machine.SetColorTank = ColorTank.NONE;
-                        Global.Machine.StartConveyor();
-                        Global.SemaphoreMachine.Release();
                     }
-                }
+                else
+                    MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }
