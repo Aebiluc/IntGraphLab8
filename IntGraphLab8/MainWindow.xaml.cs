@@ -165,7 +165,7 @@ namespace IntGraphLab8
             //Suspension du thread machine pour éviter les accent concurrant à la machine
             global.ThreadMachine.Suspend();
             _convoyor = global.Machine.ConveyorOn;
-            _color = global.Machine.SetColorTank;
+            _color = global.Machine.ColorTank;
             global.ThreadMachine.Resume();
             ButtonStart.IsEnabled = true;
             
@@ -177,7 +177,7 @@ namespace IntGraphLab8
             global.ThreadMachine.Suspend();
             if (_convoyor)
                 global.Machine.StartConveyor();
-            global.Machine.SetColorTank = _color;
+            global.Machine.ColorTank = _color;
             global.ThreadMachine.Resume();
             global.ThreadRecipe.Resume();
             ButtonStart.IsEnabled = false;

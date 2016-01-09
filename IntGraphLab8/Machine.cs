@@ -122,7 +122,7 @@ namespace APIMAchine
             }
         }
 
-        public ColorTank SetColorTank
+        public ColorTank ColorTank
         {
             set
             {

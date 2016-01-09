@@ -56,7 +56,7 @@ namespace IntGraphLab8
                 {
                     IsConveyorOn = Global.Machine.ConveyorOn;
                     IsBucketLocked = Global.Machine.BucketLocked;
-                    CurrentDeliveredColor = Global.Machine.SetColorTank;
+                    CurrentDeliveredColor = Global.Machine.ColorTank;
 
                     Dispatcher.Invoke(new Action(() =>
                     {

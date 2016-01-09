@@ -154,7 +154,7 @@ namespace IntGraphLab8
                             //Tank A
                             temps = 100 * lot.Quantity[0];
                             Global.SemaphoreMachine.Wait();
-                            Global.Machine.SetColorTank = ColorTank.A;
+                            Global.Machine.ColorTank = ColorTank.A;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
@@ -168,7 +168,7 @@ namespace IntGraphLab8
                             //Tank B
                             temps = 100 * lot.Quantity[1];
                             Global.SemaphoreMachine.Wait();
-                            Global.Machine.SetColorTank = ColorTank.B;
+                            Global.Machine.ColorTank = ColorTank.B;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
@@ -182,7 +182,7 @@ namespace IntGraphLab8
                             //Tank C
                             temps = 100 * lot.Quantity[2];
                             Global.SemaphoreMachine.Wait();
-                            Global.Machine.SetColorTank = ColorTank.C;
+                            Global.Machine.ColorTank = ColorTank.C;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
@@ -196,7 +196,7 @@ namespace IntGraphLab8
                             //Tank D
                             temps = 100 * lot.Quantity[3];
                             Global.SemaphoreMachine.Wait();
-                            Global.Machine.SetColorTank = ColorTank.D;
+                            Global.Machine.ColorTank = ColorTank.D;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
@@ -209,7 +209,7 @@ namespace IntGraphLab8
 
                             //Tank None et relancement du convoyeur
                             Global.SemaphoreMachine.Wait();
-                            Global.Machine.SetColorTank = ColorTank.NONE;
+                            Global.Machine.ColorTank = ColorTank.NONE;
                             Global.Machine.StartConveyor();
                             Global.SemaphoreMachine.Release();
                         }
