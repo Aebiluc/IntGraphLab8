@@ -137,7 +137,8 @@ namespace IntGraphLab8
         private void ButtonNewBucket_Click(object sender, RoutedEventArgs e)
         {
             Global.ThreadMachine.Suspend();
-            Global.Machine.StartConveyor();
+            if(Global.Machine.Connected)
+                Global.Machine.StartConveyor();
             Global.ThreadMachine.Resume();
         }
     }
