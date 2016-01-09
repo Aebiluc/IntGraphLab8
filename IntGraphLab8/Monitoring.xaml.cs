@@ -54,11 +54,27 @@ namespace IntGraphLab8
                 try
                 {
                     bool tmp = Global.Machine.ConveyorOn;
-                    ;//changement sur l'interface
+
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        TextBlockConnection.Text = "Connecté";
+
+                        BitmapImage bi3 = new BitmapImage();
+                        bi3.BeginInit();
+                        if (tmp)
+                            bi3.UriSource = new Uri("Image/gear_on.png", UriKind.Relative);
+                        else
+                            bi3.UriSource = new Uri("Image/gear_off.png", UriKind.Relative);
+                        bi3.EndInit();
+
+                        ConveyorGear.Source = bi3;
+                    }));
+                    
+
                 }
                 catch
                 {
-                    ;//changement sur l'interface
+                    Dispatcher.Invoke(new Action(() => { TextBlockConnection.Text = "Non-Connecté"; }));
                 }
                 Global.SemaphoreMachine.Release();
             }
