@@ -6,15 +6,29 @@
              xmlns:local="clr-namespace:IntGraphLab8"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="White"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0"/>
+        <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0" AlternationCount="2"/>
         <StackPanel Grid.Column="0">
             <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0" Click="ButtonOpenRecipe_Click"/>
-            <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" IsEnabled="False"/>
+            <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" Click="ButtonEditRecipe_Click"/>
             <Button x:Name="ButtonExecute" Content="Executer" Margin="0,50,0,0" Click="ButtonExecute_Click"/>
         </StackPanel>
     </Grid>

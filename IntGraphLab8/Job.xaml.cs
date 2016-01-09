@@ -41,7 +41,7 @@ namespace IntGraphLab8
 
             OpenFileDialog dlg = new OpenFileDialog();
             //dlg.InitialDirectory = "Recettes\\";
-            dlg.Filter = "xml files (*.xml)|*.xml";
+            dlg.Filter = "xml files (*.xml)|*.xml|recipe files (*.rcp)|*.rcp|All files (*.*)|*.*";
 
             if (dlg.ShowDialog() == true)
             {
@@ -54,6 +54,16 @@ namespace IntGraphLab8
             }
         }
 
+
+        private void ButtonEditRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.ProcessStartInfo exeRepiceEdit =
+                new System.Diagnostics.ProcessStartInfo();
+            exeRepiceEdit.FileName = "Labo6.exe";
+            exeRepiceEdit.WorkingDirectory = "";
+            System.Diagnostics.Process.Start("Labo6.exe");
+        }
+
         private void ButtonExecute_Click(object sender, RoutedEventArgs e)
         {
             //donne l'autorisation d'executer la recette
@@ -62,6 +72,7 @@ namespace IntGraphLab8
         }
 
 
+        /*      Thread avec la machine d'état pour l'execution de la recette      */
         public void RecipeExecute()
         {
             Global.SemaphoreRecipe.Wait();
