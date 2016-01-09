@@ -26,6 +26,7 @@ namespace IntGraphLab8
         public SemaphoreSlim SemaphoreMachine { get; set; }
         public SemaphoreSlim SemaphoreRecipe { get; set; }
         public Machine Machine { get; set; }
+        public double Time { get; set; }
 
         public Global()
         {
@@ -43,6 +44,7 @@ namespace IntGraphLab8
 
         private bool _convoyor;
         private ColorTank _color;
+        private long _ticksStop;
 
         public MainWindow()
         {
@@ -73,10 +75,9 @@ namespace IntGraphLab8
             global.ThreadMachine = new Thread(PageMonitoring.MachineExecute);
             global.ThreadRecipe = new Thread(PageJob.RecipeExecute);
             global.Machine = new Machine("127.0.0.1", 9999);
-           
+
             global.ThreadMachine.Start();
             global.ThreadRecipe.Start();
-
         }
 
         private void UserManagement(object sender, RoutedEventArgs e)
@@ -161,11 +162,14 @@ namespace IntGraphLab8
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
+            _ticksStop = DateTime.Now.Ticks;
             global.ThreadRecipe.Suspend();
             //Suspension du thread machine pour éviter les accent concurrant à la machine
             global.ThreadMachine.Suspend();
             _convoyor = global.Machine.ConveyorOn;
             _color = global.Machine.ColorTank;
+            global.Machine.StopConveyor();
+            global.Machine.ColorTank = ColorTank.NONE;
             global.ThreadMachine.Resume();
             ButtonStart.IsEnabled = true;
             
@@ -179,6 +183,8 @@ namespace IntGraphLab8
                 global.Machine.StartConveyor();
             global.Machine.ColorTank = _color;
             global.ThreadMachine.Resume();
+            _ticksStop = DateTime.Now.Ticks - _ticksStop;
+            global.Time += (double)_ticksStop / TimeSpan.TicksPerMillisecond;
             global.ThreadRecipe.Resume();
             ButtonStart.IsEnabled = false;
         }

@@ -129,7 +129,7 @@ namespace IntGraphLab8
                         for (int i = 0; i < lot.NbBuckets; i++)
                         {
                             long start;
-                            double temps;
+                            //double temps;
 
                             //attente d'un saut
                             while (true)
@@ -152,12 +152,12 @@ namespace IntGraphLab8
                             /*    10ml/s --> temps = Qté/10 *1000 [ms]    */
 
                             //Tank A
-                            temps = 100 * lot.Quantity[0];
+                            Global.Time = 100 * lot.Quantity[0];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.A;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -166,12 +166,12 @@ namespace IntGraphLab8
                             }));
 
                             //Tank B
-                            temps = 100 * lot.Quantity[1];
+                            Global.Time = 100 * lot.Quantity[1];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.B;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -180,12 +180,12 @@ namespace IntGraphLab8
                             }));
 
                             //Tank C
-                            temps = 100 * lot.Quantity[2];
+                            Global.Time = 100 * lot.Quantity[2];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.C;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -194,12 +194,12 @@ namespace IntGraphLab8
                             }));
 
                             //Tank D
-                            temps = 100 * lot.Quantity[3];
+                            Global.Time = 100 * lot.Quantity[3];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.D;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
