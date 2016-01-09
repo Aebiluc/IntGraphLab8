@@ -55,5 +55,10 @@
                 </StackPanel>
             </StackPanel>
         </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="2" Header="Commande">
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Name="ButtonNewBucket" Height="50" Width="150" Content="New Bucket" Margin="20" Click="ButtonNewBucket_Click"/>
+            </StackPanel>
+        </GroupBox>
     </Grid>
 </UserControl>

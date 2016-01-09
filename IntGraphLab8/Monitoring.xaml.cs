@@ -114,7 +114,11 @@ namespace IntGraphLab8
                         ImageDeliveryBucket.Source = bi2;
 
                         TextBlockTotalBucket.Text = Global.Config.TotalBucket.ToString();
-          
+
+                        if (Global.RecipeExecute)
+                            ButtonNewBucket.IsEnabled = false;
+                        else
+                            ButtonNewBucket.IsEnabled = true;
 
                     }));
                 }
@@ -129,6 +133,12 @@ namespace IntGraphLab8
                 Global.SemaphoreMachine.Release();
             }
         }
-        /*                   Gestion de la connection avec la machine                   */
+
+        private void ButtonNewBucket_Click(object sender, RoutedEventArgs e)
+        {
+            Global.ThreadMachine.Suspend();
+            Global.Machine.StartConveyor();
+            Global.ThreadMachine.Resume();
+        }
     }
 }
