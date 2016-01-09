@@ -75,7 +75,7 @@ namespace IntGraphLab8
         /*      Thread avec la machine d'état pour l'execution de la recette      */
         public void RecipeExecute()
         {
-            int index = 0;
+            int index = 0, totBucket = 0;
 
             Global.SemaphoreRecipe.Wait();
             if (Global.Machine.Connected)
@@ -90,6 +90,9 @@ namespace IntGraphLab8
                 Global.SemaphoreMachine.Release();
             }
             Global.SemaphoreRecipe.Release();
+
+
+
             while (true)
             {
                 //attente du signal entre deux execution de recette
@@ -102,6 +105,9 @@ namespace IntGraphLab8
 
                 if (connect)
                 {
+                    totBucket = 0;
+                    foreach (Lot lot in recipe.items)
+                        totBucket += lot.NbBuckets;
                     index = 0;
                     foreach (Lot lot in recipe.items)
                     {
@@ -110,6 +116,7 @@ namespace IntGraphLab8
                         Dispatcher.Invoke(new Action(() =>
                         {
                             TextBlockLot.Text = index.ToString() + '/' + recipe.NbLot.ToString();
+                            BorderColorLot.Background = ColorToBrush(FindFinalColor(lot));
                         }));
                         /*Actualisation du visuel*/
 
@@ -174,11 +181,60 @@ namespace IntGraphLab8
                             Global.Machine.SetColorTank = ColorTank.NONE;
                             Global.Machine.StartConveyor();
                             Global.SemaphoreMachine.Release();
+
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                ProgressBarProgress.Value = ProgressBarProgress.Value + 1.0 / totBucket * 100;
+                            }));
                         }
                     }
                 }else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+        }
+
+        Color PaintingColorBlue = Color.FromArgb(255, 69, 134, 191);
+        Color PaintingColorGreen = Color.FromArgb(255, 125, 185, 105);
+        Color PaintingColorYellow = Color.FromArgb(255, 253, 240, 2);
+        Color PaintingColorOrange = Color.FromArgb(255, 242, 146, 5);
+        const double MixCoefficient = 0.95;
+        const double debitColor = 10; //    ml/s
+
+        public Brush ColorToBrush(Color c)
+        {
+            return new SolidColorBrush(Color.FromRgb(c.R, c.G, c.B));
+        }
+
+        public Color MixColors(Color colorA, Color colorB)
+        {
+            return Color.FromArgb(
+                255,
+                (byte)(MixCoefficient * colorA.R + (1 - MixCoefficient) * colorB.R),
+                (byte)(MixCoefficient * colorA.G + (1 - MixCoefficient) * colorB.G),
+                (byte)(MixCoefficient * colorA.B + (1 - MixCoefficient) * colorB.B));
+        }
+
+        public Color FindFinalColor(Lot lot)
+        {
+            int n, i;
+            Color color = Color.FromArgb(255, 255, 255, 255);
+            n = (int)(lot.Quantity[0] / (debitColor * 0.25));
+            for (i = 0; i < n; i++)
+                color = MixColors(color, PaintingColorBlue);
+
+            n = (int)(lot.Quantity[1] / (debitColor * 0.25));
+            for (i = 0; i < n; i++)
+                color = MixColors(color, PaintingColorGreen);
+
+            n = (int)(lot.Quantity[2] / (debitColor * 0.25));
+            for (i = 0; i < n; i++)
+                color = MixColors(color, PaintingColorOrange);
+
+            n = (int)(lot.Quantity[3] / (debitColor * 0.25));
+            for (i = 0; i < n; i++)
+                color = MixColors(color, PaintingColorYellow);
+
+            return color;
         }
     }
 }
