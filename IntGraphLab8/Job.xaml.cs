@@ -86,7 +86,10 @@ namespace IntGraphLab8
         {
             //donne l'autorisation d'executer la recette
             if (recipe.NbLot != 0)
+            {
                 Global.SemaphoreRecipe.Release();
+                Global.RecipeExecute = true;
+            }
         }
 
 
@@ -171,12 +174,12 @@ namespace IntGraphLab8
                             /*    10ml/s --> temps = Qté/10 *1000 [ms]    */
 
                             //Tank A
-                            temps = 100 * lot.Quantity[0];
+                            Global.Time = 100 * lot.Quantity[0];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.A;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -185,12 +188,12 @@ namespace IntGraphLab8
                             }));
 
                             //Tank B
-                            temps = 100 * lot.Quantity[1];
+                            Global.Time = 100 * lot.Quantity[1];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.B;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -199,12 +202,12 @@ namespace IntGraphLab8
                             }));
 
                             //Tank C
-                            temps = 100 * lot.Quantity[2];
+                            Global.Time = 100 * lot.Quantity[2];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.C;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -213,12 +216,12 @@ namespace IntGraphLab8
                             }));
 
                             //Tank D
-                            temps = 100 * lot.Quantity[3];
+                            Global.Time = 100 * lot.Quantity[3];
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.ColorTank = ColorTank.D;
                             Global.SemaphoreMachine.Release();
                             start = DateTime.Now.Ticks;
-                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
+                            while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < Global.Time)
                                 Thread.Sleep(10);
 
                             Dispatcher.Invoke(new Action(() =>
@@ -233,7 +236,9 @@ namespace IntGraphLab8
                             Global.SemaphoreMachine.Release();
                         }
                     }
-                }else
+                    Global.RecipeExecute = false;
+                }
+                else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
