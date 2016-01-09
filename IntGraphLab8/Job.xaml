@@ -20,16 +20,40 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="110"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
         <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0" AlternationCount="2"/>
         <StackPanel Grid.Column="0">
             <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0" Click="ButtonOpenRecipe_Click"/>
             <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" Click="ButtonEditRecipe_Click"/>
             <Button x:Name="ButtonExecute" Content="Executer" Margin="0,50,0,0" Click="ButtonExecute_Click"/>
         </StackPanel>
+        <Border Grid.ColumnSpan="2" Grid.Row="1" Margin="0,1,0,1" Background="Black"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="TextBlockNumLot" Text="Lot n° :  " VerticalAlignment="Center" FontSize="14"/>
+                <TextBlock x:Name="TextBlockLot" Text="/" VerticalAlignment="Center" FontSize="14"/>
+            </StackPanel>
+            <Border x:Name="BorderColorLot" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" BorderBrush="Black" BorderThickness="2"/>
+        </Grid>
+        <ProgressBar x:Name="ProgressBarProgress" Grid.Row="2" Grid.Column="1" 
+                     VerticalAlignment="Center" Height="25" Margin="5,0,0,0" 
+                     Background="Transparent" BorderBrush="Blue" BorderThickness="1"
+                     Minimum="0" Maximum="100"/>
+        <TextBlock x:Name="TextBlockProgress" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                   Text="{Binding ElementName=ProgressBarProgress, Path=Value, StringFormat={}{0:0}%}"/>
     </Grid>
 </UserControl>

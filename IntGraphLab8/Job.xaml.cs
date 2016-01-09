@@ -75,6 +75,8 @@ namespace IntGraphLab8
         /*      Thread avec la machine d'état pour l'execution de la recette      */
         public void RecipeExecute()
         {
+            int index = 0;
+
             Global.SemaphoreRecipe.Wait();
             if (Global.Machine.Connected)
             {
@@ -90,15 +92,26 @@ namespace IntGraphLab8
             Global.SemaphoreRecipe.Release();
             while (true)
             {
+                //attente du signal entre deux execution de recette
                 Global.SemaphoreRecipe.Wait();
 
                 //Check que la machine soit connectée
                 Global.SemaphoreMachine.Wait();
                 bool connect = Global.Machine.Connected;
                 Global.SemaphoreMachine.Release();
-                if(connect)
+
+                if (connect)
+                    index = 0;
                     foreach (Lot lot in recipe.items)
                     {
+                        index++;
+                        /*Actualisation du visuel*/
+                        Dispatcher.Invoke(new Action(() =>
+                        {
+                            TextBlockLot.Text = index.ToString() + '/' + recipe.NbLot.ToString();
+                        }));
+                        /*Actualisation du visuel*/
+
                         for (int i = 0; i < lot.NbBuckets; i++)
                         {
                             long start;
