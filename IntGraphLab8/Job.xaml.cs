@@ -68,7 +68,10 @@ namespace IntGraphLab8
         {
             //donne l'autorisation d'executer la recette
             if (recipe.NbLot != 0)
+            {
                 Global.SemaphoreRecipe.Release();
+                Global.RecipeExecute = true;
+            }
         }
 
 
@@ -214,7 +217,9 @@ namespace IntGraphLab8
                             Global.SemaphoreMachine.Release();
                         }
                     }
-                }else
+                    Global.RecipeExecute = false;
+                }
+                else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
