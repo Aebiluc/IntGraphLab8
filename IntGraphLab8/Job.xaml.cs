@@ -105,8 +105,8 @@ namespace IntGraphLab8
 
                 //active le convoyeur avec l'arrivée des sauts
                 Global.Machine.BucketLoadingEnabled = true;
-                Global.Machine.StartConveyor();
-
+                if (!Global.Machine.BucketLocked)
+                    Global.Machine.StartConveyor();
 
                 Global.SemaphoreMachine.Release();
             }
