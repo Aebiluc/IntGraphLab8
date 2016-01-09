@@ -29,7 +29,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="4"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0" AlternationCount="2"/>
         <StackPanel Grid.Column="0">
@@ -43,17 +43,34 @@
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="TextBlockNumLot" Text="Lot n° :  " VerticalAlignment="Center" FontSize="14"/>
                 <TextBlock x:Name="TextBlockLot" Text="/" VerticalAlignment="Center" FontSize="14"/>
             </StackPanel>
-            <Border x:Name="BorderColorLot" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" BorderBrush="Black" BorderThickness="2"/>
+            <Border x:Name="BorderColorLot" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" BorderBrush="Black" BorderThickness="2"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock x:Name="TextBlockNumBucket" Text="saut n° :  " VerticalAlignment="Center" FontSize="14"/>
+                <TextBlock x:Name="TextBlockBucket" Text="/" VerticalAlignment="Center" FontSize="14"/>
+            </StackPanel>
         </Grid>
-        <ProgressBar x:Name="ProgressBarProgress" Grid.Row="2" Grid.Column="1" 
-                     VerticalAlignment="Center" Height="25" Margin="5,0,0,0" 
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="25"/>
+            </Grid.RowDefinitions>
+            <ProgressBar x:Name="ProgressBarProgress" VerticalAlignment="Center" Height="25" Margin="5,0,0,0" 
                      Background="Transparent" BorderBrush="Blue" BorderThickness="1"
                      Minimum="0" Maximum="100"/>
-        <TextBlock x:Name="TextBlockProgress" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
+            <TextBlock x:Name="TextBlockProgress" VerticalAlignment="Center" HorizontalAlignment="Center" 
                    Text="{Binding ElementName=ProgressBarProgress, Path=Value, StringFormat={}{0:0}%}"/>
+            
+            <TextBlock x:Name="TextBlockTime" Grid.Row="1" Margin="5,0,0,0" VerticalAlignment="Center" Text="Temps restant : 0min"/>
+        </Grid>
     </Grid>
 </UserControl>

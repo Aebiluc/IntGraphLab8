@@ -96,7 +96,7 @@ namespace IntGraphLab8
         /*      Thread avec la machine d'état pour l'execution de la recette      */
         public void RecipeExecute()
         {
-            int index = 0, totBucket = 0;
+            int indexLot = 0, indexBucket = 0, totBucket = 0;
 
             Global.SemaphoreRecipe.Wait();
             if (Global.Machine.Connected)
@@ -126,32 +126,31 @@ namespace IntGraphLab8
 
                 if (connect)
                 {
+                    /* init */
                     totBucket = 0;
                     foreach (Lot lot in recipe.items)
                         totBucket += lot.NbBuckets;
-                    index = 0;
+                    indexLot = 0;
+                    indexBucket = 0;
 
                     Dispatcher.Invoke(new Action(() =>
                     {
                         ProgressBarProgress.Value = 0;
                     }));
-
+                    /* Execution de la recette */
                     foreach (Lot lot in recipe.items)
                     {
-                        index++;
+                        indexLot++;
                        
-                        /*Actualisation du visuel*/
                         Dispatcher.Invoke(new Action(() =>
                         {
-                            TextBlockLot.Text = index.ToString() + '/' + recipe.NbLot.ToString();
+                            TextBlockLot.Text = indexLot.ToString() + '/' + recipe.NbLot.ToString();
                             BorderColorLot.Background = ColorToBrush(FindFinalColor(lot));
                         }));
-                        /*Actualisation du visuel*/
 
                         for (int i = 0; i < lot.NbBuckets; i++)
                         {
                             long start;
-                            double temps;
                             Global.Config.TotalBucket++;
                             //attente d'un saut
                             while (true)
@@ -165,9 +164,10 @@ namespace IntGraphLab8
                                 Global.SemaphoreMachine.Release();
                                 Thread.Sleep(100);
                             }
-
+                            indexBucket++;
                             Dispatcher.Invoke(new Action(() =>
                             {
+                                TextBlockBucket.Text = indexBucket.ToString() + '/' + totBucket.ToString();
                                 ProgressBarProgress.Value = ProgressBarProgress.Value + 0.2 / totBucket * 100;
                             }));
 
