@@ -1,0 +1,5 @@
+ - Verouillage de la possibilité d'ajouter une recette alors qu'une autre est en cours
+
+- Annuler une recette en cours
+
+- Ajout de statique stylé 
