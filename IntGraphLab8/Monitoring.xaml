@@ -19,7 +19,7 @@
         <GroupBox Grid.Column="0" Grid.Row="0" Header="Connexion" Padding="5">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="Satus de la connexion : "/>
-                <TextBlock Text="Connexion" />
+                <TextBlock Name="TextBlockConnection" Text="Connexion" />
             </StackPanel>
         </GroupBox>
         <GroupBox Grid.Column="1" Grid.Row="0" Header="Convoyeur" Padding="10">
