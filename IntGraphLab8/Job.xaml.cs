@@ -109,6 +109,12 @@ namespace IntGraphLab8
                     foreach (Lot lot in recipe.items)
                         totBucket += lot.NbBuckets;
                     index = 0;
+
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        ProgressBarProgress.Value = 0;
+                    }));
+
                     foreach (Lot lot in recipe.items)
                     {
                         index++;
@@ -138,6 +144,11 @@ namespace IntGraphLab8
                                 Thread.Sleep(100);
                             }
 
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                ProgressBarProgress.Value = ProgressBarProgress.Value + 0.2 / totBucket * 100;
+                            }));
+
                             /*    10ml/s --> temps = Qté/10 *1000 [ms]    */
 
                             //Tank A
@@ -149,6 +160,11 @@ namespace IntGraphLab8
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
                                 Thread.Sleep(10);
 
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                ProgressBarProgress.Value = ProgressBarProgress.Value + 0.2 / totBucket * 100;
+                            }));
+
                             //Tank B
                             temps = 100 * lot.Quantity[1];
                             Global.SemaphoreMachine.Wait();
@@ -157,6 +173,11 @@ namespace IntGraphLab8
                             start = DateTime.Now.Ticks;
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
                                 Thread.Sleep(10);
+
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                ProgressBarProgress.Value = ProgressBarProgress.Value + 0.2 / totBucket * 100;
+                            }));
 
                             //Tank C
                             temps = 100 * lot.Quantity[2];
@@ -167,6 +188,11 @@ namespace IntGraphLab8
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
                                 Thread.Sleep(10);
 
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                ProgressBarProgress.Value = ProgressBarProgress.Value + 0.2 / totBucket * 100;
+                            }));
+
                             //Tank D
                             temps = 100 * lot.Quantity[3];
                             Global.SemaphoreMachine.Wait();
@@ -176,16 +202,16 @@ namespace IntGraphLab8
                             while ((double)(DateTime.Now.Ticks - start) / TimeSpan.TicksPerMillisecond < temps)
                                 Thread.Sleep(10);
 
+                            Dispatcher.Invoke(new Action(() =>
+                            {
+                                ProgressBarProgress.Value = ProgressBarProgress.Value + 0.2 / totBucket * 100;
+                            }));
+
                             //Tank None et relancement du convoyeur
                             Global.SemaphoreMachine.Wait();
                             Global.Machine.SetColorTank = ColorTank.NONE;
                             Global.Machine.StartConveyor();
                             Global.SemaphoreMachine.Release();
-
-                            Dispatcher.Invoke(new Action(() =>
-                            {
-                                ProgressBarProgress.Value = ProgressBarProgress.Value + 1.0 / totBucket * 100;
-                            }));
                         }
                     }
                 }else
