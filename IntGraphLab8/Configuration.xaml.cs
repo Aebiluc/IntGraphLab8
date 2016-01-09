@@ -24,17 +24,12 @@ namespace IntGraphLab8
     {
         private ProgrammeConfig _configFile;
 
-        public ProgrammeConfig ConfigFile
+        public Global ConfigFile
         {
             set
             {
-                _configFile = value;
-                ConfigFilePath.Text = value.FilePath;
-            }
-
-            get
-            {
-                return _configFile;
+                _configFile = value.Config;
+                ConfigFilePath.Text = value.Config.FilePath;
             }
         }
 

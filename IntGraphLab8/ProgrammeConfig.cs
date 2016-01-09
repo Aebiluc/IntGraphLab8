@@ -10,11 +10,13 @@ namespace IntGraphLab8
     public class ProgrammeConfig : ISerialXML
     {
         public string FilePath { get; set; }
+        public int TotalBucket { get; set; }
 
         public void ExportXML(XmlWriter writer)
         {
             writer.WriteStartElement("Parameter");
             writer.WriteElementString("FilePath", FilePath);
+            writer.WriteElementString("TotalBucket", TotalBucket.ToString());
             writer.WriteEndElement();
         }
 
@@ -22,6 +24,7 @@ namespace IntGraphLab8
         {
             reader.ReadStartElement("Parameter");
             FilePath = reader.ReadElementContentAsString("FilePath", "");
+            TotalBucket = reader.ReadElementContentAsInt("TotalBucket", "");
             reader.ReadEndElement();
         }
     }

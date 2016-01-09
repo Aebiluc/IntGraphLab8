@@ -26,11 +26,13 @@ namespace IntGraphLab8
         public SemaphoreSlim SemaphoreMachine { get; set; }
         public SemaphoreSlim SemaphoreRecipe { get; set; }
         public Machine Machine { get; set; }
+        public ProgrammeConfig Config { get; set; }
 
         public Global()
         {
             SemaphoreMachine = new SemaphoreSlim(1);
             SemaphoreRecipe = new SemaphoreSlim(0);
+            Config = new ProgrammeConfig();
         }
     }
 
@@ -38,8 +40,8 @@ namespace IntGraphLab8
     public partial class MainWindow : Window
     {
         User CurrentUser;
-        ProgrammeConfig Config;
         Global global;
+        ProgrammeConfig Config;
 
         private bool _convoyor;
         private ColorTank _color;
@@ -53,22 +55,16 @@ namespace IntGraphLab8
             PageStart.ButtonValidateAction = UserManagement;
             ButtonConfig.IsEnabled = false;
             ButtonStart.IsEnabled = false;
-
-            Config = new ProgrammeConfig();
-            try
-            {
-                LoadConfigFile();
-                PageConfig.ConfigFile = Config;
-            }
-            catch
-            {
-                MessageBox.Show("Erreur lors du chargement du fichier de configuration");
-                SaveConfigFile();
-            }
+            
             //initialisation pour les variables globales
             global = new Global();
+
+            Config = global.Config;
+            LoadConfigFile();
+
             PageJob.Global = global;
             PageMonitoring.Global = global;
+            
 
             global.ThreadMachine = new Thread(PageMonitoring.MachineExecute);
             global.ThreadRecipe = new Thread(PageJob.RecipeExecute);
@@ -93,7 +89,14 @@ namespace IntGraphLab8
         {
             using (XmlReader reader = XmlReader.Create("Config.XML"))
             {
-                Config.ImportXML(reader);
+                try
+                {
+                    Config.ImportXML(reader);
+                }
+                catch
+                {
+                    MessageBox.Show("Impossible d'ouvrir le fichier de configuration");
+                }
             }
         }
 

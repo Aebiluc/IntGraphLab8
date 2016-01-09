@@ -74,9 +74,9 @@ namespace IntGraphLab8
                         ConveyorGear.Source = bi3;
 
                         if (IsBucketLocked)
-                            ImageBucketLocked.Visibility = Visibility.Visible;
+                            ImageBucketLocked.Opacity = 1;
                         else
-                            ImageBucketLocked.Visibility = Visibility.Hidden;
+                            ImageBucketLocked.Opacity = 0.2;
 
 
                         BitmapImage bi2 = new BitmapImage();
@@ -113,6 +113,8 @@ namespace IntGraphLab8
                         bi2.EndInit();
                         ImageDeliveryBucket.Source = bi2;
 
+                        TextBlockTotalBucket.Text = Global.Config.TotalBucket.ToString();
+          
 
                     }));
                 }

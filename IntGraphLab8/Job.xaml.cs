@@ -46,7 +46,18 @@ namespace IntGraphLab8
             if (dlg.ShowDialog() == true)
             {
                 using (XmlReader reader = XmlReader.Create(dlg.FileName))
-                    recipe.ImportXML(reader);
+                {
+                    try
+                    {
+                        recipe.ImportXML(reader);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Impossible d'ouvrir le fichier de recette");
+                        return;
+                    }
+                }
+                    
                 foreach(Lot lot in recipe.items)
                 {
                     ListBoxRecipe.Items.Add(lot.ToString());
@@ -61,7 +72,14 @@ namespace IntGraphLab8
                 new System.Diagnostics.ProcessStartInfo();
             exeRepiceEdit.FileName = "Labo6.exe";
             exeRepiceEdit.WorkingDirectory = "";
-            System.Diagnostics.Process.Start("Labo6.exe");
+            try
+            {
+                System.Diagnostics.Process.Start("Labo6.exe");
+            }
+            catch
+            {
+                MessageBox.Show("Impossible de trouver le programme d'édition de recette");
+            }
         }
 
         private void ButtonExecute_Click(object sender, RoutedEventArgs e)
@@ -118,6 +136,7 @@ namespace IntGraphLab8
                     foreach (Lot lot in recipe.items)
                     {
                         index++;
+                       
                         /*Actualisation du visuel*/
                         Dispatcher.Invoke(new Action(() =>
                         {
@@ -130,7 +149,7 @@ namespace IntGraphLab8
                         {
                             long start;
                             double temps;
-
+                            Global.Config.TotalBucket++;
                             //attente d'un saut
                             while (true)
                             {
