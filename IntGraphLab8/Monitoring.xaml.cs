@@ -70,8 +70,6 @@ namespace IntGraphLab8
 
                         ConveyorGear.Source = bi3;
                     }));
-                    
-
                 }
                 catch
                 {

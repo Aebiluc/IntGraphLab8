@@ -136,6 +136,13 @@
     <Resource Include="Image\gear_off.png" />
     <Resource Include="Image\gear_on.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\BlueBucket.png" />
+    <Resource Include="Image\Bucket.png" />
+    <Resource Include="Image\GreenBucket.png" />
+    <Resource Include="Image\OrangeBucket.png" />
+    <Resource Include="Image\YellowBucket.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
