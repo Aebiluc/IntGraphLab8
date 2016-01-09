@@ -101,6 +101,7 @@ namespace IntGraphLab8
                 Global.SemaphoreMachine.Release();
 
                 if (connect)
+                {
                     index = 0;
                     foreach (Lot lot in recipe.items)
                     {
@@ -175,7 +176,7 @@ namespace IntGraphLab8
                             Global.SemaphoreMachine.Release();
                         }
                     }
-                else
+                }else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
