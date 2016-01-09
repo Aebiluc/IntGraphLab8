@@ -41,6 +41,9 @@ namespace IntGraphLab8
         ProgrammeConfig Config;
         Global global;
 
+        private bool _convoyor;
+        private ColorTank _color;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -49,6 +52,7 @@ namespace IntGraphLab8
             PageStart.SelectedUser = CurrentUser;
             PageStart.ButtonValidateAction = UserManagement;
             ButtonConfig.IsEnabled = false;
+            ButtonStart.IsEnabled = false;
 
             Config = new ProgrammeConfig();
             try
@@ -82,7 +86,7 @@ namespace IntGraphLab8
             else
                 ButtonConfig.IsEnabled = false;
 
-            ButtonJob_Click(sender, e);
+            ButtonJobPage_Click(sender, e);
         }
 
         private void LoadConfigFile()
@@ -93,22 +97,22 @@ namespace IntGraphLab8
             }
         }
 
-        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        private void ButtonStartPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(1);
         }
 
-        private void ButtonJob_Click(object sender, RoutedEventArgs e)
+        private void ButtonJobPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(2);
         }
 
-        private void ButtonMonitor_Click(object sender, RoutedEventArgs e)
+        private void ButtonMonitorPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(3);
         }
 
-        private void ButtonConfig_Click(object sender, RoutedEventArgs e)
+        private void ButtonConfigPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(4);
         }
@@ -153,6 +157,30 @@ namespace IntGraphLab8
             SaveConfigFile();
             global.ThreadRecipe.Abort();
             global.ThreadMachine.Abort();
+        }
+
+        private void ButtonStop_Click(object sender, RoutedEventArgs e)
+        {
+            global.ThreadRecipe.Suspend();
+            //Suspension du thread machine pour éviter les accent concurrant à la machine
+            global.ThreadMachine.Suspend();
+            _convoyor = global.Machine.ConveyorOn;
+            _color = global.Machine.SetColorTank;
+            global.ThreadMachine.Resume();
+            ButtonStart.IsEnabled = true;
+            
+        }
+
+        private void ButtonStart_Click(object sender, RoutedEventArgs e)
+        {
+            //Suspension du thread machine pour éviter les accent concurrant à la machine
+            global.ThreadMachine.Suspend();
+            if (_convoyor)
+                global.Machine.StartConveyor();
+            global.Machine.SetColorTank = _color;
+            global.ThreadMachine.Resume();
+            global.ThreadRecipe.Resume();
+            ButtonStart.IsEnabled = false;
         }
     }
 }

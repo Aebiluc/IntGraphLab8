@@ -14,21 +14,24 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Connexion" Margin="5" Click="ButtonStart_Click" Height="50"/>
-            <Button Grid.Column="1" Content="Recette" Margin="5" Click="ButtonJob_Click"/>
-            <Button Grid.Column="2" Content="Machine" Margin="5" Click="ButtonMonitor_Click"/>
-            <Button Name="ButtonConfig" Grid.Column="3" Content="Configuration" Margin="5" Click="ButtonConfig_Click"/>
+            <Button Grid.Column="0" Content="Connexion" Margin="5" Click="ButtonStartPage_Click" Height="50"/>
+            <Button Grid.Column="1" Content="Recette" Margin="5" Click="ButtonJobPage_Click"/>
+            <Button Grid.Column="2" Content="Machine" Margin="5" Click="ButtonMonitorPage_Click"/>
+            <Button Name="ButtonConfig" Grid.Column="3" Content="Configuration" Margin="5" Click="ButtonConfigPage_Click"/>
         </Grid>
         <Grid DockPanel.Dock="top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Button Grid.Column="2" Content="Stop" Margin="5" Width="80"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="2">
+                <Button x:Name="ButtonStop" Content="Stop" Background="Red" Margin="5" Width="80" Click="ButtonStop_Click"/>
+                <Button x:Name="ButtonStart" Content="Start" Background="LightGreen" Margin="5" Width="80" Click="ButtonStart_Click"/>
+            </StackPanel>
         </Grid>        
         
         <Grid VerticalAlignment="Stretch" Margin="5,5,5,5">
