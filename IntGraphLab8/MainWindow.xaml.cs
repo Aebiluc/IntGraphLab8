@@ -28,7 +28,8 @@ namespace IntGraphLab8
         public Machine Machine { get; set; }
         public ProgrammeConfig Config { get; set; }
         public double Time { get; set; }
-        public bool RecipeExecute { get; set; }
+        public bool RecipeExecuted { get; set; }
+        public System.Timers.Timer Timer { get; set; }
 
         public Global()
         {
@@ -69,7 +70,7 @@ namespace IntGraphLab8
             PageMonitoring.Global = global;
             
 
-            global.RecipeExecute = false;
+            global.RecipeExecuted = false;
 
             global.ThreadMachine = new Thread(PageMonitoring.MachineExecute);
             global.ThreadRecipe = new Thread(PageJob.RecipeExecute);
@@ -174,10 +175,11 @@ namespace IntGraphLab8
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
-            if (global.RecipeExecute)
+            if (global.RecipeExecuted)
             {
                 _ticksStop = DateTime.Now.Ticks;
                 global.ThreadRecipe.Suspend();
+                global.Timer.Stop();
                 //Suspension du thread machine pour éviter les accent concurrant à la machine
                 global.ThreadMachine.Suspend();
                 _convoyor = global.Machine.ConveyorOn;
@@ -199,6 +201,7 @@ namespace IntGraphLab8
             global.ThreadMachine.Resume();
             _ticksStop = DateTime.Now.Ticks - _ticksStop;
             global.Time += (double)_ticksStop / TimeSpan.TicksPerMillisecond;
+            global.Timer.Start();
             global.ThreadRecipe.Resume();
             ButtonStart.IsEnabled = false;
         }

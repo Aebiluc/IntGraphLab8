@@ -115,7 +115,7 @@ namespace IntGraphLab8
 
                         TextBlockTotalBucket.Text = Global.Config.TotalBucket.ToString();
 
-                        if (Global.RecipeExecute)
+                        if (Global.RecipeExecuted)
                             ButtonNewBucket.IsEnabled = false;
                         else
                             ButtonNewBucket.IsEnabled = true;

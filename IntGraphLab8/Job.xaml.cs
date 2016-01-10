@@ -88,7 +88,9 @@ namespace IntGraphLab8
             if (recipe.NbLot != 0)
             {
                 Global.SemaphoreRecipe.Release();
-                Global.RecipeExecute = true;
+                Global.RecipeExecuted = true;
+                ButtonEditRecipe.IsEnabled = false;
+                ButtonOpenRecipe.IsEnabled = false;
             }
         }
 
@@ -97,6 +99,11 @@ namespace IntGraphLab8
         public void RecipeExecute()
         {
             int indexLot = 0, indexBucket = 0, totBucket = 0;
+            double totQuantity = 0;
+            DateTime estimateTime = new DateTime(0);
+            Global.Timer = new System.Timers.Timer(1000);
+            Global.Timer.Elapsed += TimerTicks;
+
 
             Global.SemaphoreRecipe.Wait();
             if (Global.Machine.Connected)
@@ -129,14 +136,24 @@ namespace IntGraphLab8
                     /* init */
                     totBucket = 0;
                     foreach (Lot lot in recipe.items)
+                    {
                         totBucket += lot.NbBuckets;
+                        for (int i = 0; i < lot.Quantity.Length; i++)
+                            totQuantity += lot.Quantity[i]*lot.NbBuckets;
+                    }
+                    estimateTime = estimateTime.AddMilliseconds((int)(totQuantity / 10 * 1000));
+                    estimateTime = estimateTime.AddMilliseconds(2730* (totBucket - 1)); //temps moyen pour passer d'un saut à un autre
                     indexLot = 0;
                     indexBucket = 0;
 
                     Dispatcher.Invoke(new Action(() =>
                     {
                         ProgressBarProgress.Value = 0;
+                        TextBlockTotTime.Text = "Temps estimé : " + estimateTime.ToLongTimeString();
+                        TextBlockRestTime.Text = "Temps restant : " + estimateTime.ToLongTimeString();
                     }));
+
+                    Global.Timer.Start();
                     /* Execution de la recette */
                     foreach (Lot lot in recipe.items)
                     {
@@ -236,13 +253,59 @@ namespace IntGraphLab8
                             Global.SemaphoreMachine.Release();
                         }
                     }
-                    Global.RecipeExecute = false;
+                    Global.RecipeExecuted = false;
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        ButtonEditRecipe.IsEnabled = true;
+                        ButtonOpenRecipe.IsEnabled = true;
+                    }));
+                    Global.Timer.Stop();
                 }
                 else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
+        private void TimerTicks(object sender, EventArgs e)
+        {
+            string[] tab;
+            int seconds, mins, hours;
+            DateTime time = new DateTime(0);
+            Dispatcher.Invoke(new Action(() =>
+            {
+                tab = TextBlockRestTime.Text.Split(':');
+                seconds = int.Parse(tab[tab.Length - 1]);
+                mins = int.Parse(tab[tab.Length - 2]);
+                hours = int.Parse(tab[tab.Length - 3]);
+                if (seconds == 0)
+                {
+                    mins = int.Parse(tab[tab.Length - 2]);
+                    if (mins == 0)
+                    {
+                        hours = int.Parse(tab[tab.Length - 3]);
+                        if (hours == 0)
+                            return;
+                        hours--;
+                        mins = 59;
+                        seconds = 59;
+                    }
+                    else
+                    {
+                        mins--;
+                        seconds = 59;
+                    }
+                }
+                else
+                    seconds--;
+                time = time.AddSeconds(seconds);
+                time = time.AddMinutes(mins);
+                time = time.AddHours(hours);
+                TextBlockRestTime.Text = "Temps restant : " + time.ToLongTimeString();
+            }));
+        }
+
+
+        /*      final color     */
         Color PaintingColorBlue = Color.FromArgb(255, 69, 134, 191);
         Color PaintingColorGreen = Color.FromArgb(255, 125, 185, 105);
         Color PaintingColorYellow = Color.FromArgb(255, 253, 240, 2);
