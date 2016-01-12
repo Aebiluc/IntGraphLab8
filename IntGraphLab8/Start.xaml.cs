@@ -42,7 +42,9 @@ namespace IntGraphLab8
 
         private void ButtonValidate_Click(object sender, RoutedEventArgs e)
         {
-            ButtonDisconnect.IsEnabled = true;
+            if(tmp != UserType.None)
+                ButtonDisconnect.IsEnabled = true;
+
             SelectedUser.UserStatus = tmp;
             ButtonUserAction(sender, e);
         }
