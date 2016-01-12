@@ -99,10 +99,11 @@ namespace IntGraphLab8
 
         private void ButtonAbort_Click(object sender, RoutedEventArgs e)
         {
-            //Global.ThreadRecipe.Abort();
-            //Global.ThreadRecipe.
-            //Global.ThreadRecipe = new Thread(RecipeExecute);
-            //Global.ThreadMachine.Start();
+            Global.ThreadRecipe.Abort();
+            Global.ThreadRecipe.Join();
+            Global.ThreadRecipe.Interrupt();
+            Global.ThreadRecipe = new Thread(RecipeExecute);
+            Global.ThreadMachine.Start();
         }
 
         /*      Thread avec la machine d'état pour l'execution de la recette      */
@@ -110,12 +111,12 @@ namespace IntGraphLab8
         {
             int indexLot = 0, indexBucket = 0, totBucket = 0;
             double totQuantity = 0;
-            DateTime estimateTime = new DateTime(0);
             Global.Timer = new System.Timers.Timer(1000);
             Global.Timer.Elapsed += TimerTicks;
 
             /* Première initialisation */
             FirstInitRecipeExec();
+
 
             while (true)
             {
@@ -132,25 +133,17 @@ namespace IntGraphLab8
                     /* init */
                     totBucket = 0;
                     totQuantity = 0;
-                    estimateTime = new DateTime(0);
                     foreach (Lot lot in recipe.items)
                     {
                         totBucket += lot.NbBuckets;
                         for (int i = 0; i < lot.Quantity.Length; i++)
                             totQuantity += lot.Quantity[i]*lot.NbBuckets;
                     }
-                    estimateTime = estimateTime.AddMilliseconds((int)(totQuantity / 10 * 1000));
-                    estimateTime = estimateTime.AddMilliseconds(2730* (totBucket - 1)); //temps moyen pour passer d'un saut à un autre
+
+                    TimeRecipe(totQuantity, totBucket);
+
                     indexLot = 0;
                     indexBucket = 0;
-
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        ProgressBarProgress.Value = 0;
-                        TextBlockTotTime.Text = "Temps estimé : " + estimateTime.ToLongTimeString();
-                        TextBlockRestTime.Text = "Temps restant : " + estimateTime.ToLongTimeString();
-                    }));
-
 
                     /* Execution de la recette */
                     foreach (Lot lot in recipe.items)
@@ -161,6 +154,7 @@ namespace IntGraphLab8
                         {
                             TextBlockLot.Text = indexLot.ToString() + '/' + recipe.NbLot.ToString();
                             BorderColorLot.Background = ColorToBrush(FindFinalColor(lot));
+                            TextBlockBucket.Text = indexBucket.ToString() + '/' + totBucket.ToString();
                         }));
 
                         for (int i = 0; i < lot.NbBuckets; i++)
@@ -168,17 +162,16 @@ namespace IntGraphLab8
                             long start;
                             Global.Config.TotalBucket++;
                             //attente d'un saut
-                            while (true)
-                            {
+                            while (true){
                                 Global.SemaphoreMachine.Wait();
-                                if (Global.Machine.BucketLocked)
-                                {
+                                if (Global.Machine.BucketLocked){
                                     Global.SemaphoreMachine.Release();
                                     break;
                                 }
                                 Global.SemaphoreMachine.Release();
                                 Thread.Sleep(100);
                             }
+                            //Start le timer du décompte
                             Global.Timer.Start();
 
                             indexBucket++;
@@ -323,6 +316,21 @@ namespace IntGraphLab8
                 Global.SemaphoreMachine.Release();
             }
             Global.SemaphoreRecipe.Release();
+        }
+
+        private void TimeRecipe(double totQuantity, int totBucket)
+        {
+            DateTime estimateTime = new DateTime(0);
+
+            estimateTime = estimateTime.AddMilliseconds((int)(totQuantity / 10 * 1000));
+            estimateTime = estimateTime.AddMilliseconds(2730 * (totBucket - 1)); //temps moyen pour passer d'un saut à un autre
+
+            Dispatcher.Invoke(new Action(() =>
+            {
+                ProgressBarProgress.Value = 0;
+                TextBlockTotTime.Text = "Temps estimé : " + estimateTime.ToLongTimeString();
+                TextBlockRestTime.Text = "Temps restant : " + estimateTime.ToLongTimeString();
+            }));
         }
 
         /*      final color     */

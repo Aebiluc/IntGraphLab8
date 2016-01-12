@@ -188,7 +188,6 @@ namespace IntGraphLab8
             {
                 _ticksStop = DateTime.Now.Ticks;
                 global.ThreadRecipe.Suspend();
-                global.Timer.Stop();
                 //Suspension du thread machine pour éviter les accent concurrant à la machine
                 global.ThreadMachine.Suspend();
                 _convoyor = global.Machine.ConveyorOn;
@@ -196,6 +195,7 @@ namespace IntGraphLab8
                 global.Machine.StopConveyor();
                 global.Machine.ColorTank = ColorTank.NONE;
                 global.ThreadMachine.Resume();
+                global.Timer.Stop();
                 ButtonStart.IsEnabled = true;
             }
         }
@@ -208,9 +208,9 @@ namespace IntGraphLab8
                 global.Machine.StartConveyor();
             global.Machine.ColorTank = _color;
             global.ThreadMachine.Resume();
+            global.Timer.Start();
             _ticksStop = DateTime.Now.Ticks - _ticksStop;
             global.Time += (double)_ticksStop / TimeSpan.TicksPerMillisecond;
-            global.Timer.Start();
             global.ThreadRecipe.Resume();
             ButtonStart.IsEnabled = false;
         }
