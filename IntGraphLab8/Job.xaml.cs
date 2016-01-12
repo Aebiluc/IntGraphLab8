@@ -91,9 +91,19 @@ namespace IntGraphLab8
                 Global.RecipeExecuted = true;
                 ButtonEditRecipe.IsEnabled = false;
                 ButtonOpenRecipe.IsEnabled = false;
+                ButtonExecute.IsEnabled = false;
+                ButtonAbort.IsEnabled = true;
             }
         }
 
+
+        private void ButtonAbort_Click(object sender, RoutedEventArgs e)
+        {
+            //Global.ThreadRecipe.Abort();
+            //Global.ThreadRecipe.
+            //Global.ThreadRecipe = new Thread(RecipeExecute);
+            //Global.ThreadMachine.Start();
+        }
 
         /*      Thread avec la machine d'état pour l'execution de la recette      */
         public void RecipeExecute()
@@ -104,22 +114,8 @@ namespace IntGraphLab8
             Global.Timer = new System.Timers.Timer(1000);
             Global.Timer.Elapsed += TimerTicks;
 
-
-            Global.SemaphoreRecipe.Wait();
-            if (Global.Machine.Connected)
-            {
-                Global.SemaphoreMachine.Wait();
-
-                //active le convoyeur avec l'arrivée des sauts
-                Global.Machine.BucketLoadingEnabled = true;
-                if (!Global.Machine.BucketLocked)
-                    Global.Machine.StartConveyor();
-
-                Global.SemaphoreMachine.Release();
-            }
-            Global.SemaphoreRecipe.Release();
-
-
+            /* Première initialisation */
+            FirstInitRecipeExec();
 
             while (true)
             {
@@ -135,6 +131,8 @@ namespace IntGraphLab8
                 {
                     /* init */
                     totBucket = 0;
+                    totQuantity = 0;
+                    estimateTime = new DateTime(0);
                     foreach (Lot lot in recipe.items)
                     {
                         totBucket += lot.NbBuckets;
@@ -153,7 +151,7 @@ namespace IntGraphLab8
                         TextBlockRestTime.Text = "Temps restant : " + estimateTime.ToLongTimeString();
                     }));
 
-                    Global.Timer.Start();
+
                     /* Execution de la recette */
                     foreach (Lot lot in recipe.items)
                     {
@@ -181,6 +179,8 @@ namespace IntGraphLab8
                                 Global.SemaphoreMachine.Release();
                                 Thread.Sleep(100);
                             }
+                            Global.Timer.Start();
+
                             indexBucket++;
                             Dispatcher.Invoke(new Action(() =>
                             {
@@ -253,11 +253,15 @@ namespace IntGraphLab8
                             Global.SemaphoreMachine.Release();
                         }
                     }
+
+                    //Finalisation à la fin de la recette
                     Global.RecipeExecuted = false;
                     Dispatcher.Invoke(new Action(() =>
                     {
                         ButtonEditRecipe.IsEnabled = true;
                         ButtonOpenRecipe.IsEnabled = true;
+                        ButtonExecute.IsEnabled = true;
+                        ButtonAbort.IsEnabled = false;
                     }));
                     Global.Timer.Stop();
                 }
@@ -304,6 +308,22 @@ namespace IntGraphLab8
             }));
         }
 
+        private void FirstInitRecipeExec()
+        {
+            Global.SemaphoreRecipe.Wait();
+            if (Global.Machine.Connected)
+            {
+                Global.SemaphoreMachine.Wait();
+
+                //active le convoyeur avec l'arrivée des sauts
+                Global.Machine.BucketLoadingEnabled = true;
+                if (!Global.Machine.BucketLocked)
+                    Global.Machine.StartConveyor();
+
+                Global.SemaphoreMachine.Release();
+            }
+            Global.SemaphoreRecipe.Release();
+        }
 
         /*      final color     */
         Color PaintingColorBlue = Color.FromArgb(255, 69, 134, 191);
@@ -349,5 +369,6 @@ namespace IntGraphLab8
 
             return color;
         }
+
     }
 }
