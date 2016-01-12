@@ -1,3 +1,7 @@
 - Annuler une recette en cours
 
 - Ajout de statique stylé 
+
+- Page de connexion: Tester le mot de passe
+
+- Stocker le mot de passe

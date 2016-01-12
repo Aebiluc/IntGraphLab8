@@ -4,9 +4,10 @@ using System.Windows.Media;
 
 namespace IntGraphLab8
 {
-    public delegate void ButtonValidate(object sender, RoutedEventArgs e);
+    public delegate void ButtonUserManagement(object sender, RoutedEventArgs e);
     public partial class Start : UserControl
     {
+        UserType tmp = new UserType();
         public Start()
         {
             InitializeComponent();
@@ -14,34 +15,43 @@ namespace IntGraphLab8
 
         private void ButtonOperator_Click(object sender, RoutedEventArgs e)
         {
-            SelectedUser.UserStatus = UserType.Operator;
-            buttonOperateur.Background = Brushes.DarkGray;
+            tmp = UserType.Operator;
+            buttonOperateur.Background = Brushes.DarkMagenta;
             ButtonManager.Background = Brushes.LightGray;
             ButtonAdmin.Background = Brushes.LightGray;
         }
 
         private void ButtonManager_Click(object sender, RoutedEventArgs e)
         {
-            SelectedUser.UserStatus = UserType.Manager;
-            ButtonManager.Background = Brushes.DarkGray;
+            tmp = UserType.Manager;
+            ButtonManager.Background = Brushes.DarkMagenta;
             buttonOperateur.Background = Brushes.LightGray;
             ButtonAdmin.Background = Brushes.LightGray;
         }
 
         private void ButtonAdmin_Click(object sender, RoutedEventArgs e)
         {
-            SelectedUser.UserStatus = UserType.Admin;
-            ButtonAdmin.Background = Brushes.DarkGray;
+            tmp = UserType.Admin;
+            ButtonAdmin.Background = Brushes.DarkMagenta;
             buttonOperateur.Background = Brushes.LightGray;
             ButtonManager.Background = Brushes.LightGray;
         }
 
         public User SelectedUser { get; set; }
-        public ButtonValidate ButtonValidateAction { get; set; }
+        public ButtonUserManagement ButtonUserAction { get; set; }
 
         private void ButtonValidate_Click(object sender, RoutedEventArgs e)
         {
-            ButtonValidateAction(sender, e);
+            ButtonDisconnect.IsEnabled = true;
+            SelectedUser.UserStatus = tmp;
+            ButtonUserAction(sender, e);
+        }
+
+        private void ButtonDisconnect_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonDisconnect.IsEnabled = false;
+            SelectedUser.UserStatus = UserType.None;
+            ButtonUserAction(sender, e);
         }
     }
 }

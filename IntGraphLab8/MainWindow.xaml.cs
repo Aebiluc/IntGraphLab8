@@ -56,9 +56,10 @@ namespace IntGraphLab8
             PageManagement(1);
             CurrentUser = new User(UserType.None);
             PageStart.SelectedUser = CurrentUser;
-            PageStart.ButtonValidateAction = UserManagement;
+            PageStart.ButtonUserAction = UserManagement;
             ButtonConfig.IsEnabled = false;
-            ButtonStart.IsEnabled = false;
+            ButtonRecette.IsEnabled = false;
+            ButtonMachine.IsEnabled = false;
             
             //initialisation pour les variables globales
             global = new Global();
@@ -82,12 +83,20 @@ namespace IntGraphLab8
 
         private void UserManagement(object sender, RoutedEventArgs e)
         {
-            if (CurrentUser.UserStatus == UserType.Admin)
+            if (CurrentUser.UserStatus != UserType.None)
+            {
                 ButtonConfig.IsEnabled = true;
-            else
-                ButtonConfig.IsEnabled = false;
+                ButtonMachine.IsEnabled = true;
+                ButtonRecette.IsEnabled = true;
 
-            ButtonJobPage_Click(sender, e);
+                ButtonJobPage_Click(sender, e);
+            }
+
+            else {
+                ButtonConfig.IsEnabled = false;
+                ButtonMachine.IsEnabled = false;
+                ButtonRecette.IsEnabled = false;
+            }
         }
 
         private void LoadConfigFile()

@@ -14,9 +14,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Connexion" Margin="5" Click="ButtonStartPage_Click" Height="50"/>
-            <Button Grid.Column="1" Content="Recette" Margin="5" Click="ButtonJobPage_Click"/>
-            <Button Grid.Column="2" Content="Machine" Margin="5" Click="ButtonMonitorPage_Click"/>
+            <Button Name="ButtonConnexion" Grid.Column="0" Content="Connexion" Margin="5" Click="ButtonStartPage_Click" Height="50"/>
+            <Button Name="ButtonRecette" Grid.Column="1" Content="Recette" Margin="5" Click="ButtonJobPage_Click"/>
+            <Button Name="ButtonMachine"  Grid.Column="2" Content="Machine" Margin="5" Click="ButtonMonitorPage_Click"/>
             <Button Name="ButtonConfig" Grid.Column="3" Content="Configuration" Margin="5" Click="ButtonConfigPage_Click"/>
         </Grid>
         <Grid DockPanel.Dock="top">
