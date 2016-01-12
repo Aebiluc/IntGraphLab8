@@ -1,6 +1,6 @@
 - Annuler une recette en cours
 
-- Ajout de statique stylé 
+- Ajout de statistique stylé 
 
 - Page de connexion: Tester le mot de passe
 

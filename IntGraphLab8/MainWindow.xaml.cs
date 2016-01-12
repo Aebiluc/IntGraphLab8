@@ -60,6 +60,8 @@ namespace IntGraphLab8
             ButtonConfig.IsEnabled = false;
             ButtonRecette.IsEnabled = false;
             ButtonMachine.IsEnabled = false;
+
+            ButtonStop.Tag = false;
             
             //initialisation pour les variables globales
             global = new Global();
@@ -204,19 +206,24 @@ namespace IntGraphLab8
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
         {
-            if (global.RecipeExecuted)
+            if((bool?)ButtonStop.Tag == false)
             {
-                _ticksStop = DateTime.Now.Ticks;
+                ButtonStop.Tag = true;
                 global.ThreadRecipe.Suspend();
                 //Suspension du thread machine pour éviter les accent concurrant à la machine
                 global.ThreadMachine.Suspend();
                 _convoyor = global.Machine.ConveyorOn;
                 _color = global.Machine.ColorTank;
+                if (_color != ColorTank.NONE || _convoyor == true || global.RecipeExecuted)
+                    ButtonStart.IsEnabled = true;
                 global.Machine.StopConveyor();
                 global.Machine.ColorTank = ColorTank.NONE;
                 global.ThreadMachine.Resume();
-                global.Timer.Stop();
-                ButtonStart.IsEnabled = true;
+                if (global.RecipeExecuted)
+                {
+                    _ticksStop = DateTime.Now.Ticks;
+                    global.Timer.Stop();
+                }
             }
         }
 
@@ -233,6 +240,7 @@ namespace IntGraphLab8
             global.Time += (double)_ticksStop / TimeSpan.TicksPerMillisecond;
             global.ThreadRecipe.Resume();
             ButtonStart.IsEnabled = false;
+            ButtonStop.Tag = false;
         }
     }
 }

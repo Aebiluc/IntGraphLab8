@@ -248,15 +248,7 @@ namespace IntGraphLab8
                     }
 
                     //Finalisation à la fin de la recette
-                    Global.RecipeExecuted = false;
-                    Dispatcher.Invoke(new Action(() =>
-                    {
-                        ButtonEditRecipe.IsEnabled = true;
-                        ButtonOpenRecipe.IsEnabled = true;
-                        ButtonExecute.IsEnabled = true;
-                        ButtonAbort.IsEnabled = false;
-                    }));
-                    Global.Timer.Stop();
+                    EndRecipe();
                 }
                 else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -331,6 +323,19 @@ namespace IntGraphLab8
                 TextBlockTotTime.Text = "Temps estimé : " + estimateTime.ToLongTimeString();
                 TextBlockRestTime.Text = "Temps restant : " + estimateTime.ToLongTimeString();
             }));
+        }
+
+        private void EndRecipe()
+        {
+            Global.RecipeExecuted = false;
+            Dispatcher.Invoke(new Action(() =>
+            {
+                ButtonEditRecipe.IsEnabled = true;
+                ButtonOpenRecipe.IsEnabled = true;
+                ButtonExecute.IsEnabled = true;
+                ButtonAbort.IsEnabled = false;
+            }));
+            Global.Timer.Stop();
         }
 
         /*      final color     */

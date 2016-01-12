@@ -29,7 +29,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Grid.Column="2">
-                <Button x:Name="ButtonStop" Content="Stop" Background="Red" Margin="5" Width="80" Click="ButtonStop_Click"/>
+                <Button x:Name="ButtonStop" Content="Stop" Background="Red" Margin="5" Width="80" Tag="false" Click="ButtonStop_Click"/>
                 <Button x:Name="ButtonStart" Content="Start" Background="LightGreen" Margin="5" Width="80" IsEnabled="False" Click="ButtonStart_Click"/>
             </StackPanel>
         </Grid>        
