@@ -11,7 +11,10 @@ namespace IntGraphLab8
     public class User
     {
         public UserType UserStatus { get; set; }
-        
+        public string mdp {get;set;}
+
+        public User() { UserStatus = UserType.None; }
+       
         public User(UserType type)
         {
             UserStatus = type;
