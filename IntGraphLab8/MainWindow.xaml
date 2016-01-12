@@ -14,10 +14,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Name="ButtonConnexion" Grid.Column="0" Content="Connexion" Margin="5" Click="ButtonStartPage_Click" Height="50"/>
-            <Button Name="ButtonRecette" Grid.Column="1" Content="Recette" Margin="5" Click="ButtonJobPage_Click"/>
-            <Button Name="ButtonMachine"  Grid.Column="2" Content="Machine" Margin="5" Click="ButtonMonitorPage_Click"/>
-            <Button Name="ButtonConfig" Grid.Column="3" Content="Configuration" Margin="5" Click="ButtonConfigPage_Click"/>
+            <Button Name="ButtonConnexion" Grid.Column="0" Content="Connexion" BorderBrush="Blue" BorderThickness="2" Margin="5" Click="ButtonStartPage_Click" Height="50"/>
+            <Button Name="ButtonRecette" Grid.Column="1" Content="Recette" BorderBrush="Blue" Margin="5" Click="ButtonJobPage_Click"/>
+            <Button Name="ButtonMachine"  Grid.Column="2" Content="Machine" BorderBrush="Blue" Margin="5" Click="ButtonMonitorPage_Click"/>
+            <Button Name="ButtonConfig" Grid.Column="3" Content="Configuration" BorderBrush="Blue" Margin="5" Click="ButtonConfigPage_Click"/>
         </Grid>
         <Grid DockPanel.Dock="top">
             <Grid.ColumnDefinitions>

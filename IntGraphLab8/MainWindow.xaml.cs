@@ -117,21 +117,41 @@ namespace IntGraphLab8
         private void ButtonStartPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(1);
+
+            ButtonConnexion.BorderThickness = new Thickness(2.0);
+            ButtonRecette.BorderThickness = new Thickness(0);
+            ButtonMachine.BorderThickness = new Thickness(0);
+            ButtonConfig.BorderThickness = new Thickness(0);
         }
 
         private void ButtonJobPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(2);
+
+            ButtonConnexion.BorderThickness = new Thickness(0);
+            ButtonRecette.BorderThickness = new Thickness(2.0);
+            ButtonMachine.BorderThickness = new Thickness(0);
+            ButtonConfig.BorderThickness = new Thickness(0);
         }
 
         private void ButtonMonitorPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(3);
+
+            ButtonConnexion.BorderThickness = new Thickness(0);
+            ButtonRecette.BorderThickness = new Thickness(0);
+            ButtonMachine.BorderThickness = new Thickness(2.0);
+            ButtonConfig.BorderThickness = new Thickness(0);
         }
 
         private void ButtonConfigPage_Click(object sender, RoutedEventArgs e)
         {
             PageManagement(4);
+
+            ButtonConnexion.BorderThickness = new Thickness(0);
+            ButtonRecette.BorderThickness = new Thickness(0);
+            ButtonMachine.BorderThickness = new Thickness(0);
+            ButtonConfig.BorderThickness = new Thickness(2.0);
         }
 
         private void PageManagement(int numPage)

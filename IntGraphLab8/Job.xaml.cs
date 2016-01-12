@@ -99,11 +99,11 @@ namespace IntGraphLab8
 
         private void ButtonAbort_Click(object sender, RoutedEventArgs e)
         {
-            Global.ThreadRecipe.Abort();
-            Global.ThreadRecipe.Join();
-            Global.ThreadRecipe.Interrupt();
-            Global.ThreadRecipe = new Thread(RecipeExecute);
-            Global.ThreadMachine.Start();
+            //Global.ThreadRecipe.Abort();
+            //Global.ThreadRecipe.Join();
+            //Global.ThreadRecipe.Interrupt();
+            //Global.ThreadRecipe = new Thread(RecipeExecute);
+            //Global.ThreadMachine.Start();
         }
 
         /*      Thread avec la machine d'état pour l'execution de la recette      */
