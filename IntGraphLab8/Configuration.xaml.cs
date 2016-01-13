@@ -23,13 +23,17 @@ namespace IntGraphLab8
     public partial class Configuration : UserControl
     {
         private ProgrammeConfig _configFile;
+        public User CurrentUser { private get; set; }
 
-        public Global ConfigFile
+        public delegate void SaveConfigFile();
+        public SaveConfigFile SaveFile { get; set; }
+
+        public ProgrammeConfig ConfigFile
         {
             set
             {
-                _configFile = value.Config;
-                ConfigFilePath.Text = value.Config.FilePath;
+                _configFile = value;
+                ConfigFilePath.Text = value.FilePath;
             }
         }
 
@@ -39,9 +43,45 @@ namespace IntGraphLab8
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
             _configFile.FilePath = ConfigFilePath.Text;
+            SaveFile();
+        }
+
+        private void ButtonChangeMdp_Click(object sender, RoutedEventArgs e)
+        {
+            if(PasswordBoxNew.Password == PasswordBoxNew.Password)
+            {
+                PasswordBoxNew.BorderBrush = Brushes.Green;
+                PasswordBoxConfirm.BorderBrush = Brushes.Green;
+
+                CurrentUser.mdp = PasswordBoxNew.Password;
+
+                switch (CurrentUser.UserStatus)
+                {
+                    case UserType.None:
+                        break;
+                    case UserType.Operator:
+                        _configFile.MdpOperateur = PasswordBoxNew.Password;
+                        break;
+                    case UserType.Manager:
+                        _configFile.MdpManager = PasswordBoxNew.Password;
+                        break;
+                    case UserType.Admin:
+                        _configFile.MdpAdmin = PasswordBoxNew.Password;
+                        break;
+                    default:
+                        break;
+                }
+                SaveFile();
+
+            }
+            else
+            {
+                PasswordBoxNew.BorderBrush = Brushes.Red;
+                PasswordBoxConfirm.BorderBrush = Brushes.Red;
+            }
         }
     }
 }

@@ -41,7 +41,7 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" >
-            <PasswordBox Name="PassWord" Width="100" Height="20" />
+            <PasswordBox Name="PassWord" Width="100" Height="20"/>
             <Button Content="Valider"  Height="20" Margin="10,0,0,0" Click="ButtonValidate_Click"/>
             <Button Name="ButtonDisconnect" Content="Déconnexion" Height="20" Margin="10,0,0,0" IsEnabled="False" Click="ButtonDisconnect_Click"/>
         </StackPanel>

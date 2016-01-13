@@ -72,6 +72,9 @@ namespace IntGraphLab8
 
             PageStart.Config = Config;
 
+            PageConfig.ConfigFile = Config;
+            PageConfig.SaveFile += SaveConfigFile;
+
             global.RecipeExecuted = false;
 
             global.ThreadMachine = new Thread(PageMonitoring.MachineExecute);
@@ -85,6 +88,7 @@ namespace IntGraphLab8
         private void UserManagement(object sender, RoutedEventArgs e)
         {
             CurrentUser = PageStart.SelectedUser;
+            PageConfig.CurrentUser = CurrentUser;
             if (CurrentUser.UserStatus != UserType.None)
             {
                 ButtonConfig.IsEnabled = true;
