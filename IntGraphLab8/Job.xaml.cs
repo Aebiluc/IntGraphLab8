@@ -246,12 +246,11 @@ namespace IntGraphLab8
                             Global.SemaphoreMachine.Release();
                         }
                     }
-
-                    //Finalisation à la fin de la recette
-                    EndRecipe();
                 }
                 else
                     MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //Finalisation à la fin de la recette
+                EndRecipe();
             }
         }
 
