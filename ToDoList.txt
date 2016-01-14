@@ -2,6 +2,4 @@
 
 - Ajout de statistique stylé 
 
-- Page de connexion: Tester le mot de passe
-
-- Stocker le mot de passe
+- Verrouillage des l'accès à certain parametre en fonction du niveau de l'utilisateur

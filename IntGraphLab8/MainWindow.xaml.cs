@@ -54,8 +54,6 @@ namespace IntGraphLab8
         {
             InitializeComponent();
             PageManagement(1);
-            CurrentUser = new User(UserType.None);
-            PageStart.SelectedUser = CurrentUser;
             PageStart.ButtonUserAction = UserManagement;
             ButtonConfig.IsEnabled = false;
             ButtonRecette.IsEnabled = false;
@@ -71,7 +69,11 @@ namespace IntGraphLab8
 
             PageJob.Global = global;
             PageMonitoring.Global = global;
-            
+
+            PageStart.Config = Config;
+
+            PageConfig.ConfigFile = Config;
+            PageConfig.SaveFile += SaveConfigFile;
 
             global.RecipeExecuted = false;
 
@@ -85,6 +87,8 @@ namespace IntGraphLab8
 
         private void UserManagement(object sender, RoutedEventArgs e)
         {
+            CurrentUser = PageStart.SelectedUser;
+            PageConfig.CurrentUser = CurrentUser;
             if (CurrentUser.UserStatus != UserType.None)
             {
                 ButtonConfig.IsEnabled = true;
