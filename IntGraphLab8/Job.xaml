@@ -20,64 +20,64 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="110"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="7"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0" AlternationCount="2"/>
-        <StackPanel Grid.Column="0">
-            <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0" Click="ButtonOpenRecipe_Click"/>
-            <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" Click="ButtonEditRecipe_Click"/>
-            <Button x:Name="ButtonExecute" Content="Executer" Margin="0,50,0,0" Click="ButtonExecute_Click"/>
-            <Button x:Name="ButtonAbort" Content="Annuler" Margin="0,5,0,0" IsEnabled="False" Click="ButtonAbort_Click"/>
-        </StackPanel>
-        
-        <Border Grid.ColumnSpan="2" Grid.Row="1" Height="2" VerticalAlignment="Center" Background="Black"/>
-        <TextBlock FontWeight="Bold" Text="Recette en cours :" FontSize="14" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" Margin="3,0,0,0"/>
-        
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            
-            <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="TextBlockNumLot" Text="Lot n° :  " VerticalAlignment="Center" FontSize="14"/>
-                <TextBlock x:Name="TextBlockLot" Text="/" VerticalAlignment="Center" FontSize="14"/>
-            </StackPanel>
-            <Border x:Name="BorderColorLot" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" BorderBrush="Black" BorderThickness="2"/>
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <TextBlock x:Name="TextBlockNumBucket" Text="saut n° :  " VerticalAlignment="Center" FontSize="14"/>
-                <TextBlock x:Name="TextBlockBucket" Text="/" VerticalAlignment="Center" FontSize="14"/>
-            </StackPanel>
-        </Grid>
 
-        <Grid Grid.Row="3" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="25"/>
-            </Grid.RowDefinitions>
-            <ProgressBar x:Name="ProgressBarProgress" VerticalAlignment="Center" Height="25" Margin="5,0,0,0" 
+        <GroupBox Grid.Row="0" Header="Gestion de la recette :" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="110"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0" AlternationCount="2"/>
+                <StackPanel Grid.Column="0">
+                    <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0" Click="ButtonOpenRecipe_Click"/>
+                    <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" Click="ButtonEditRecipe_Click"/>
+                    <Button x:Name="ButtonExecute" Content="Executer" Margin="0,50,0,0" Click="ButtonExecute_Click"/>
+                    <Button x:Name="ButtonAbort" Content="Annuler" Margin="0,5,0,0" IsEnabled="False" Click="ButtonAbort_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+  
+        <GroupBox Grid.Row="1" Header="Recette en cours :" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="TextBlockNumLot" Text="Lot n° :  " VerticalAlignment="Center" FontSize="14"/>
+                    <TextBlock x:Name="TextBlockLot" Text="/" VerticalAlignment="Center" FontSize="14"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <TextBlock x:Name="TextBlockNumBucket" Text="saut n° :  " VerticalAlignment="Center" FontSize="14"/>
+                    <TextBlock x:Name="TextBlockBucket" Text="/" VerticalAlignment="Center" FontSize="14"/>
+                </StackPanel>
+
+                <Border x:Name="BorderColorLot" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" BorderBrush="Black" BorderThickness="2"/>
+
+                <ProgressBar x:Name="ProgressBarProgress" Grid.Column="2" VerticalAlignment="Center" Height="25" Margin="5,0,0,0" 
                      Background="Transparent" BorderBrush="Blue" BorderThickness="1"
                      Minimum="0" Maximum="100"/>
-            <TextBlock x:Name="TextBlockProgress" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                <TextBlock x:Name="TextBlockProgress" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" 
                    Text="{Binding ElementName=ProgressBarProgress, Path=Value, StringFormat={}{0:0}%}"/>
-            <DockPanel  Grid.Row="1" VerticalAlignment="Center">
-                <TextBlock x:Name="TextBlockTotTime" DockPanel.Dock="Left" Margin="5,0,0,0" Text="Temps estimé : 00:00:00"/>
-                <TextBlock x:Name="TextBlockRestTime" DockPanel.Dock="Right" Margin="20,0,0,0" Text="Temps restant : 00:00:00"/>
-            </DockPanel>
-        </Grid>
+
+                <DockPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+                    <TextBlock x:Name="TextBlockTotTime" DockPanel.Dock="Left" Margin="5,0,0,0" Text="Temps estimé : 00:00:00"/>
+                    <TextBlock x:Name="TextBlockRestTime" DockPanel.Dock="Right" Margin="20,0,0,0" Text="Temps restant : 00:00:00"/>
+                </DockPanel>
+            </Grid>
+        </GroupBox>
     </Grid>
 </UserControl>
