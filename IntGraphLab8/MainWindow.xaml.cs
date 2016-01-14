@@ -194,12 +194,14 @@ namespace IntGraphLab8
         private void mainWindowsClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveConfigFile();
-            if (global.ThreadRecipe.ThreadState == ThreadState.Suspended)
-                global.ThreadRecipe.Resume();
-            if (global.ThreadMachine.ThreadState == ThreadState.Suspended)
-                global.ThreadMachine.Resume();
-            global.ThreadRecipe.Abort();
-            global.ThreadMachine.Abort();
+            //if (global.ThreadRecipe.ThreadState == ThreadState.Suspended)
+            //    global.ThreadRecipe.Resume();
+            //if (global.ThreadMachine.ThreadState == ThreadState.Suspended)
+            //    global.ThreadMachine.Resume();
+            //global.ThreadRecipe.Abort();
+            //global.ThreadMachine.Abort();
+            global.ThreadRecipe.Interrupt();
+            global.ThreadMachine.Interrupt();
             global.Machine.StopConveyor();
             global.Machine.ColorTank = ColorTank.NONE;
         }
