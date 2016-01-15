@@ -21,13 +21,13 @@ namespace IntGraphLab8
             get
             {
                 string tmp = _MdpOperateur;
-                DecryptString(tmp);
+                DecryptString(ref tmp);
                 return tmp;
             }
             set
             {
                 _MdpOperateur = value;
-                EncryptString(_MdpOperateur);
+                EncryptString(ref _MdpOperateur);
             }
         }
 
@@ -36,13 +36,13 @@ namespace IntGraphLab8
             get
             {
                 string tmp = _MdpManager;
-                DecryptString(tmp);
+                DecryptString(ref tmp);
                 return tmp;
             }
             set
             {
                 _MdpManager = value;
-                EncryptString(_MdpManager);
+                EncryptString(ref _MdpManager);
             }
         }
         public string MdpAdmin
@@ -50,13 +50,13 @@ namespace IntGraphLab8
             get
             {
                 string tmp = _Mdpadmin;
-                DecryptString(tmp);
+                DecryptString(ref tmp);
                 return tmp;
             }
             set
             {
                 _Mdpadmin = value;
-                EncryptString(_Mdpadmin);
+                EncryptString(ref _Mdpadmin);
             }
         }
 
@@ -65,9 +65,9 @@ namespace IntGraphLab8
             writer.WriteStartElement("Parameter");
             writer.WriteElementString("FilePath", FilePath);
             writer.WriteElementString("TotalBucket", TotalBucket.ToString());
-            writer.WriteElementString("MdpOperateur", MdpOperateur);
-            writer.WriteElementString("MdpManager", MdpManager);
-            writer.WriteElementString("MdpAdmin", MdpAdmin);
+            writer.WriteElementString("MdpOperateur", _MdpOperateur);
+            writer.WriteElementString("MdpManager", _MdpManager);
+            writer.WriteElementString("MdpAdmin", _Mdpadmin);
             writer.WriteEndElement();
         }
 
@@ -76,9 +76,9 @@ namespace IntGraphLab8
             reader.ReadStartElement("Parameter");
             FilePath = reader.ReadElementContentAsString("FilePath", "");
             TotalBucket = reader.ReadElementContentAsInt("TotalBucket", "");
-            MdpOperateur = reader.ReadElementContentAsString("MdpOperateur", "");
-            MdpManager = reader.ReadElementContentAsString("MdpManager", "");
-            MdpAdmin = reader.ReadElementContentAsString("MdpAdmin", "");
+            _MdpOperateur = reader.ReadElementContentAsString("MdpOperateur", "");
+            _MdpManager = reader.ReadElementContentAsString("MdpManager", "");
+            _Mdpadmin = reader.ReadElementContentAsString("MdpAdmin", "");
             reader.ReadEndElement();
 
             if (MdpOperateur == "")
@@ -91,22 +91,20 @@ namespace IntGraphLab8
                 MdpAdmin = "a";
         }
 
-        private void EncryptString(string mdp)
+        private void EncryptString(ref string mdp)
         {
-            /*
             StringBuilder tmp = new StringBuilder();
             foreach (char item in mdp)
-                tmp.Append( item + 1);
-            mdp = tmp.ToString();*/
+                tmp.Append((char)(item + 1));
+            mdp = tmp.ToString();
         }
 
-        private void DecryptString(string mdp)
+        private void DecryptString(ref string mdp)
         {
-            /*
             StringBuilder tmp = new StringBuilder();
             foreach (char item in mdp)
-                tmp.Append(item - 1);
-            mdp = tmp.ToString();*/
+                tmp.Append((char)(item - 1));
+            mdp = tmp.ToString();
         }
     }
 }
