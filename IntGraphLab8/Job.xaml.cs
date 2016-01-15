@@ -115,7 +115,7 @@ namespace IntGraphLab8
             Global.Timer.Elapsed += TimerTicks;
 
             /* Première initialisation */
-            FirstInitRecipeExec();
+            while(FirstInitRecipeExec());
 
 
             while (true)
@@ -292,12 +292,12 @@ namespace IntGraphLab8
             }));
         }
 
-        private void FirstInitRecipeExec()
+        private bool FirstInitRecipeExec()
         {
             Global.SemaphoreRecipe.Wait();
+            Global.SemaphoreMachine.Wait();
             if (Global.Machine.Connected)
             {
-                Global.SemaphoreMachine.Wait();
 
                 //active le convoyeur avec l'arrivée des sauts
                 Global.Machine.BucketLoadingEnabled = true;
@@ -305,8 +305,16 @@ namespace IntGraphLab8
                     Global.Machine.StartConveyor();
 
                 Global.SemaphoreMachine.Release();
+                Global.SemaphoreRecipe.Release();
+                return true;
             }
-            Global.SemaphoreRecipe.Release();
+            else
+            {
+                Global.SemaphoreMachine.Release();
+                MessageBox.Show("Impossible d'executer la recette.\nLa machine ne répond pas", "Aucune connection avec la machine", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
         }
 
         private void TimeRecipe(double totQuantity, int totBucket)

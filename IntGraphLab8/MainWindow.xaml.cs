@@ -206,8 +206,11 @@ namespace IntGraphLab8
             //global.ThreadMachine.Abort();
             global.ThreadRecipe.Interrupt();
             global.ThreadMachine.Interrupt();
-            global.Machine.StopConveyor();
-            global.Machine.ColorTank = ColorTank.NONE;
+            if (global.Machine.Connected)
+            {
+                global.Machine.StopConveyor();
+                global.Machine.ColorTank = ColorTank.NONE;
+            }
         }
 
         private void ButtonStop_Click(object sender, RoutedEventArgs e)
