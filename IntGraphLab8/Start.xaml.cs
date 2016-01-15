@@ -26,6 +26,7 @@ namespace IntGraphLab8
             buttonOperateur.Background = Brushes.DarkMagenta;
             ButtonManager.Background = Brushes.LightGray;
             ButtonAdmin.Background = Brushes.LightGray;
+            PassWord.Focus();
         }
 
         private void ButtonManager_Click(object sender, RoutedEventArgs e)
@@ -36,6 +37,7 @@ namespace IntGraphLab8
             ButtonManager.Background = Brushes.DarkMagenta;
             buttonOperateur.Background = Brushes.LightGray;
             ButtonAdmin.Background = Brushes.LightGray;
+            PassWord.Focus();
         }
 
         private void ButtonAdmin_Click(object sender, RoutedEventArgs e)
@@ -46,6 +48,7 @@ namespace IntGraphLab8
             ButtonAdmin.Background = Brushes.DarkMagenta;
             buttonOperateur.Background = Brushes.LightGray;
             ButtonManager.Background = Brushes.LightGray;
+            PassWord.Focus();
         }
 
         public User SelectedUser { get; set; }
@@ -64,9 +67,11 @@ namespace IntGraphLab8
                 }
                 else
                 {
-                    MessageBox.Show("Mot de passe incorrect", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Mot de passe incorrect", "Waring", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-            }            
+            }  
+            else
+                MessageBox.Show("Aucun Utilisateur Sélectionné!", "Waring", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void ButtonDisconnect_Click(object sender, RoutedEventArgs e)
