@@ -217,7 +217,6 @@ namespace IntGraphLab8
         {
             if((bool?)ButtonStop.Tag == false)
             {
-                ButtonStop.Tag = true;
                 global.ThreadRecipe.Suspend();
                 //Suspension du thread machine pour éviter les acces concurrant à la machine
                 global.ThreadMachine.Suspend();
@@ -235,6 +234,12 @@ namespace IntGraphLab8
                 {
                     _ticksStop = DateTime.Now.Ticks;
                     global.Timer.Stop();
+                    ButtonStop.Tag = true;
+                }
+                else
+                {
+                    global.ThreadRecipe.Resume();
+                    ButtonStart.IsEnabled = false;
                 }
             }
         }
