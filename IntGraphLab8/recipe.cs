@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.Collections.ObjectModel;
 
 namespace IntGraphLab8
 {
@@ -66,7 +67,7 @@ namespace IntGraphLab8
 
     public class Recipe : ISerialXML
     {
-        private List<Lot> _listLot = new List<Lot>();
+        private ObservableCollection<Lot> _listLot = new ObservableCollection<Lot>();
         private int _currentId;
         public IEnumerable items { get { return _listLot; } }
 

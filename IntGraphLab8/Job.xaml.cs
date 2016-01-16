@@ -32,11 +32,11 @@ namespace IntGraphLab8
         {
             InitializeComponent();
             recipe = new Recipe();
+            ListBoxRecipe.ItemsSource = recipe.items;
         }
 
         private void ButtonOpenRecipe_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxRecipe.Items.Clear();
             recipe.Clear();
 
             OpenFileDialog dlg = new OpenFileDialog();
@@ -56,11 +56,6 @@ namespace IntGraphLab8
                         MessageBox.Show("Impossible d'ouvrir le fichier de recette");
                         return;
                     }
-                }
-                    
-                foreach(Lot lot in recipe.items)
-                {
-                    ListBoxRecipe.Items.Add(lot.ToString());
                 }
             }
         }
@@ -98,10 +93,10 @@ namespace IntGraphLab8
 
         private void ButtonAbort_Click(object sender, RoutedEventArgs e)
         {
-            //Global.ThreadRecipe.Abort();
+            Global.ThreadRecipe.Abort();
             //Global.ThreadRecipe.Join();
             //Global.ThreadRecipe.Interrupt();
-            //Global.ThreadRecipe = new Thread(RecipeExecute);
+            //Global.ThreadRecipe = new Thread(new ThreadStart(RecipeExecute));
             //Global.ThreadMachine.Start();
         }
 
@@ -114,7 +109,7 @@ namespace IntGraphLab8
             Global.Timer.Elapsed += TimerTicks;
 
             /* Première initialisation */
-            while(FirstInitRecipeExec());
+            while(!FirstInitRecipeExec());
 
 
             while (true)

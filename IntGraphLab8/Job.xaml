@@ -34,6 +34,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <ListBox x:Name="ListBoxRecipe" Grid.Column="1" Margin="5,0,0,0" AlternationCount="2"/>
+                
+                
                 <StackPanel Grid.Column="0">
                     <Button x:Name="ButtonOpenRecipe" Content="Ouvrir recette" Margin="0,5,0,0" Click="ButtonOpenRecipe_Click"/>
                     <Button x:Name="ButtonEditRecipe" Content="Editeur de recette" Margin="0,5,0,0" Click="ButtonEditRecipe_Click"/>
