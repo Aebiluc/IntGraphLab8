@@ -64,6 +64,29 @@ namespace IntGraphLab8
                     SelectedUser.UserStatus = _SelectedUser.UserStatus;
                     ButtonUserAction(sender, e);
                     SelectedUser = _SelectedUser;
+
+                    ButtonValider.IsEnabled = false;
+                    PassWord.IsEnabled = false;
+                    switch (_SelectedUser.UserStatus)
+                    {
+                        case UserType.None:
+                            break;
+                        case UserType.Operator:
+                            ButtonManager.Visibility = Visibility.Collapsed;
+                            ButtonAdmin.Visibility = Visibility.Collapsed;
+                            break;
+                        case UserType.Manager:
+                            ButtonAdmin.Visibility = Visibility.Collapsed;
+                            buttonOperateur.Visibility = Visibility.Collapsed;
+                            break;
+                        case UserType.Admin:
+                            buttonOperateur.Visibility = Visibility.Collapsed;
+                            ButtonManager.Visibility = Visibility.Collapsed;
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
                 else
                 {
@@ -80,7 +103,14 @@ namespace IntGraphLab8
             _SelectedUser.UserStatus = UserType.None;
             _SelectedUser.mdp = "";
             SelectedUser = _SelectedUser;
-            
+
+            buttonOperateur.Visibility = Visibility.Visible;
+            ButtonManager.Visibility = Visibility.Visible;
+            ButtonAdmin.Visibility = Visibility.Visible;
+
+            ButtonValider.IsEnabled = true;
+            PassWord.IsEnabled = true;
+
             ButtonUserAction(sender, e);
         }
     }
