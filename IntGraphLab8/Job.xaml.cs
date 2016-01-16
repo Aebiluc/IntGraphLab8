@@ -32,11 +32,11 @@ namespace IntGraphLab8
         {
             InitializeComponent();
             recipe = new Recipe();
+            ListBoxRecipe.ItemsSource = recipe.items;
         }
 
         private void ButtonOpenRecipe_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxRecipe.Items.Clear();
             recipe.Clear();
 
             OpenFileDialog dlg = new OpenFileDialog();
@@ -56,11 +56,6 @@ namespace IntGraphLab8
                         MessageBox.Show("Impossible d'ouvrir le fichier de recette");
                         return;
                     }
-                }
-                    
-                foreach(Lot lot in recipe.items)
-                {
-                    ListBoxRecipe.Items.Add(lot.ToString());
                 }
             }
         }
