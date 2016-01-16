@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IntGraphLab8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600" Closing="mainWindowsClose">
+        Title="MainWindow" Height="500" Width="600" Closing="mainWindowsClose" Icon="Image/Icon.jpg">
     <DockPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
