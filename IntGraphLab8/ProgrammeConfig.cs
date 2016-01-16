@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -89,6 +90,9 @@ namespace IntGraphLab8
 
             if (MdpAdmin == "")
                 MdpAdmin = "a";
+
+            if (FilePath == "")
+                FilePath = Path.GetFullPath(Path.Combine(Path.GetTempPath(), @"..\..\..\Recettes"));
         }
 
         private void EncryptString(string mdp)

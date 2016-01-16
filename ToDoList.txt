@@ -2,4 +2,6 @@
 
 - Ajout de statistique stylé 
 
+- Logo application
+
 - Verrouillage des l'accès à certain parametre en fonction du niveau de l'utilisateur

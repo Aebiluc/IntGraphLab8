@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IntGraphLab8;
+using Microsoft.Win32;
 
 namespace IntGraphLab8
 {
@@ -81,6 +82,21 @@ namespace IntGraphLab8
             {
                 PasswordBoxNew.BorderBrush = Brushes.Red;
                 PasswordBoxConfirm.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void ButtonChangeFilePath_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
+            // Do not allow the user to create new files via the FolderBrowserDialog.
+            dlg.ShowNewFolderButton = false;
+
+            // Default to the My Documents folder.
+            //dlg.RootFolder = Environment.SpecialFolder.Personal;
+            dlg.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ConfigFilePath.Text = dlg.SelectedPath;
             }
         }
     }

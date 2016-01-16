@@ -40,9 +40,9 @@ namespace IntGraphLab8
             recipe.Clear();
 
             OpenFileDialog dlg = new OpenFileDialog();
-            //dlg.InitialDirectory = "Recettes\\";
-            dlg.Filter = "xml files (*.xml)|*.xml|recipe files (*.rcp)|*.rcp|All files (*.*)|*.*";
-
+            dlg.InitialDirectory = Global.Config.FilePath;
+            dlg.Filter = "xml/recipe files (*.xml, *.rcp)|*.xml;*.rcp|All files (*.*)|*.*";
+            
             if (dlg.ShowDialog() == true)
             {
                 using (XmlReader reader = XmlReader.Create(dlg.FileName))
@@ -64,7 +64,6 @@ namespace IntGraphLab8
                 }
             }
         }
-
 
         private void ButtonEditRecipe_Click(object sender, RoutedEventArgs e)
         {
