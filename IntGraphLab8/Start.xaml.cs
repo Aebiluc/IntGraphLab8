@@ -23,7 +23,7 @@ namespace IntGraphLab8
             _SelectedUser.UserStatus = UserType.Operator;
             _SelectedUser.mdp = Config.MdpOperateur;
             
-            buttonOperateur.Background = Brushes.DarkMagenta;
+            buttonOperateur.Background = Brushes.DarkCyan;
             ButtonManager.Background = Brushes.LightGray;
             ButtonAdmin.Background = Brushes.LightGray;
             PassWord.Focus();
@@ -34,7 +34,7 @@ namespace IntGraphLab8
             _SelectedUser.UserStatus = UserType.Manager;
             _SelectedUser.mdp = Config.MdpManager;
 
-            ButtonManager.Background = Brushes.DarkMagenta;
+            ButtonManager.Background = Brushes.DarkCyan;
             buttonOperateur.Background = Brushes.LightGray;
             ButtonAdmin.Background = Brushes.LightGray;
             PassWord.Focus();
@@ -45,7 +45,7 @@ namespace IntGraphLab8
             _SelectedUser.UserStatus = UserType.Admin;
             _SelectedUser.mdp = Config.MdpAdmin;
 
-            ButtonAdmin.Background = Brushes.DarkMagenta;
+            ButtonAdmin.Background = Brushes.DarkCyan;
             buttonOperateur.Background = Brushes.LightGray;
             ButtonManager.Background = Brushes.LightGray;
             PassWord.Focus();

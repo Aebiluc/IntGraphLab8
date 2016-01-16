@@ -24,7 +24,20 @@ namespace IntGraphLab8
     public partial class Configuration : UserControl
     {
         private ProgrammeConfig _configFile;
-        public User CurrentUser { private get; set; }
+        private User _CurrentUser;
+
+        public User CurrentUser {
+            private get {return _CurrentUser; }
+            set
+            {
+                _CurrentUser = value;
+                if (_CurrentUser.UserStatus == UserType.Admin)
+                    GroupBoxRecipeConfig.Visibility = Visibility.Visible;
+                else
+                    GroupBoxRecipeConfig.Visibility = Visibility.Collapsed;
+            }
+
+        }
 
         public delegate void SaveConfigFile();
         public SaveConfigFile SaveFile { get; set; }

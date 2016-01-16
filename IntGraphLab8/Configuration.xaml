@@ -13,7 +13,7 @@
         </StackPanel>
 
         <StackPanel>
-            <GroupBox Header="Configuration générale">
+            <GroupBox Header="Configuration générale" x:Name="GroupBoxRecipeConfig">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
