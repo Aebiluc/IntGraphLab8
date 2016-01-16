@@ -96,7 +96,7 @@ namespace IntGraphLab8
             Global.ThreadRecipe.Abort();
             //Global.ThreadRecipe.Join();
             //Global.ThreadRecipe.Interrupt();
-            //Global.ThreadRecipe = new Thread(new ThreadStart(RecipeExecute));
+            Global.ThreadRecipe = new Thread(new ThreadStart(RecipeExecute));
             //Global.ThreadMachine.Start();
         }
 
