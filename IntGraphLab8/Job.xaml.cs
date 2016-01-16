@@ -98,10 +98,10 @@ namespace IntGraphLab8
 
         private void ButtonAbort_Click(object sender, RoutedEventArgs e)
         {
-            //Global.ThreadRecipe.Abort();
+            Global.ThreadRecipe.Abort();
             //Global.ThreadRecipe.Join();
             //Global.ThreadRecipe.Interrupt();
-            //Global.ThreadRecipe = new Thread(RecipeExecute);
+            //Global.ThreadRecipe = new Thread(new ThreadStart(RecipeExecute));
             //Global.ThreadMachine.Start();
         }
 
@@ -114,7 +114,7 @@ namespace IntGraphLab8
             Global.Timer.Elapsed += TimerTicks;
 
             /* Première initialisation */
-            while(FirstInitRecipeExec());
+            while(!FirstInitRecipeExec());
 
 
             while (true)
