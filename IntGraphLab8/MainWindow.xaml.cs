@@ -219,14 +219,17 @@ namespace IntGraphLab8
             {
                 ButtonStop.Tag = true;
                 global.ThreadRecipe.Suspend();
-                //Suspension du thread machine pour éviter les accent concurrant à la machine
+                //Suspension du thread machine pour éviter les acces concurrant à la machine
                 global.ThreadMachine.Suspend();
-                _convoyor = global.Machine.ConveyorOn;
-                _color = global.Machine.ColorTank;
-                if (_color != ColorTank.NONE || _convoyor == true || global.RecipeExecuted)
-                    ButtonStart.IsEnabled = true;
-                global.Machine.StopConveyor();
-                global.Machine.ColorTank = ColorTank.NONE;
+                if (global.Machine.Connected)
+                {
+                    _convoyor = global.Machine.ConveyorOn;
+                    _color = global.Machine.ColorTank;
+                    if (_color != ColorTank.NONE || _convoyor == true || global.RecipeExecuted)
+                        ButtonStart.IsEnabled = true;
+                    global.Machine.StopConveyor();
+                    global.Machine.ColorTank = ColorTank.NONE;
+                }
                 global.ThreadMachine.Resume();
                 if (global.RecipeExecuted)
                 {
@@ -240,9 +243,12 @@ namespace IntGraphLab8
         {
             //Suspension du thread machine pour éviter les accent concurrant à la machine
             global.ThreadMachine.Suspend();
-            if (_convoyor)
-                global.Machine.StartConveyor();
-            global.Machine.ColorTank = _color;
+            if (global.Machine.Connected)
+            {
+                if (_convoyor)
+                    global.Machine.StartConveyor();
+                global.Machine.ColorTank = _color;
+            }
             global.ThreadMachine.Resume();
             global.Timer.Start();
             _ticksStop = DateTime.Now.Ticks - _ticksStop;
