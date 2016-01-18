@@ -37,14 +37,13 @@ namespace IntGraphLab8
 
         private void ButtonOpenRecipe_Click(object sender, RoutedEventArgs e)
         {
-            recipe.Clear();
-
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.InitialDirectory = Global.Config.FilePath;
             dlg.Filter = "xml/recipe files (*.xml, *.rcp)|*.xml;*.rcp|All files (*.*)|*.*";
             
             if (dlg.ShowDialog() == true)
             {
+                recipe.Clear();
                 using (XmlReader reader = XmlReader.Create(dlg.FileName))
                 {
                     try
